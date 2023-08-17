@@ -217,7 +217,7 @@ export default function MainLayout() {
                 Hi ✋🏻
             </div>
             <div className='logo-container'>
-                <h1 className='logo-main'>NextDB</h1>
+                <h1 className='logo-main'>BextDB</h1>
             </div>
             <div className={`sorting-nav my-6 ml-2 flex gap-2 items-center ${isSticky ? 'fixed-nav' : ''}`}>
                 <h1>Sort</h1>
