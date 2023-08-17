@@ -137,6 +137,7 @@ export default function MainLayout() {
         return (
             <Cards
                 id={item['id']}
+                key={item['id']}
                 title={val === 'tv_popular' ? item['name'] : item['title']}
                 poster_path={item['poster_path']}
                 overview={item['overview']}
@@ -195,6 +196,7 @@ export default function MainLayout() {
                 modalState={modalState} closeModal={closeModal}
                 val={val}
                 genres={genres}
+                key={currentID}
             />
             <ModalTwo greet={greet} greetings={greetings} />
             <Footer />
