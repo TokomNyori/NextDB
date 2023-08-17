@@ -27,7 +27,6 @@ const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies
 
     // @ts-ignore
     const details = movies.map(movie => {
-        console.log("Keyyyy: " + key)
         if (movie.id === currentID) {
             return (
                 <div className='.content-wrapper' key={currentID}>
