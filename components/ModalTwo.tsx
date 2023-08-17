@@ -29,7 +29,9 @@ const ModalTwo: React.FC<ModalTwoProps> = ({ greet, greetings }) => {
                                     className='modal-image h-full'
                                     src="/images/Mee.jpg" alt=""
                                 />
-                                <a className='text-md flex justify-end items-center gap-1 cursor-pointer mr-1' target='_blank'
+                                <a
+                                    className='insta-link text-md flex justify-end items-center gap-1 cursor-pointer mr-1'
+                                    target='_blank'
                                     href="https://www.instagram.com/geekpie.in/">
                                     <span className='text-sm'>Follow -&gt; </span>
                                     <FaInstagram className='text-pink-600 text-md shadow-lg' />
