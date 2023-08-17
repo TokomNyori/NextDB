@@ -41,7 +41,7 @@ const ModalTwo: React.FC<ModalTwoProps> = ({ greet, greetings }) => {
                                 <span className='font-bold text-green-300'>This web app </span>
                                 is developed using Next.js, TypeScript, Tailwind CSS, Axios,
                                 and the TMDB API.
-                                <a href="https://github.com/TokomNyori" target='_blank'>
+                                <a href="https://github.com/TokomNyori/NextDB" target='_blank'>
                                     <span className='text-sm'> Github Repo -&gt; </span>
                                     <span><AiFillGithub className='text-white text-xl shadow-lg inline' /></span>
                                 </a>

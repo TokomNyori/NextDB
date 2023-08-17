@@ -19,17 +19,19 @@ export default function MainLayout() {
     const [genres, setGenres] = useState([])
     const [currentID, setCurrentID] = useState()
     const [greet, setGreet] = useState(false)
+    const API_KEY = "88477ce165409d6acab148e6bbcff0a7"
 
     useEffect(() => {
         try {
             setLoading(true)
             toast.promise(
-                axios.get('/api/get/', { params: { val } })
-                    .then(res => {
-                        setData(res.data)
-                        setLoading(false)
-                        scrollToTop()
-                    }),
+                // axios.get('/api/get/', { params: { val } })
+                //     .then(res => {
+                //         setData(res.data)
+                //         setLoading(false)
+                //         scrollToTop()
+                //     }),
+                workingWithData(),
                 {
                     loading: 'Loading...',
                     success: <b className="capitalize">{mirrorVal}</b>,
@@ -56,11 +58,26 @@ export default function MainLayout() {
 
     useEffect(() => {
         setLoading(true)
-        axios.get('/api/get/', { params: { currentID, val } })
-            .then(res => {
-                setGenres(res.data)
-                setLoading(false)
-            })
+        // axios.get('/api/get/', { params: { currentID, val } })
+        //     .then(res => {
+        //         setGenres(res.data)
+        //         setLoading(false)
+        //     })
+        if (val === 'tv_popular') {
+            fetch(`https://api.themoviedb.org/3/tv/${currentID}?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setLoading(false)
+                    setGenres(data.genres)
+                })
+        } else {
+            fetch(`https://api.themoviedb.org/3/movie/${currentID}?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setLoading(false)
+                    setGenres(data.genres)
+                })
+        }
     }, [currentID])
 
     useEffect(() => {
@@ -81,6 +98,34 @@ export default function MainLayout() {
         };
 
     })
+
+    async function workingWithData() {
+        if (val === 'trending') {
+            let result = await fetch(`https://api.themoviedb.org/3/${val}/movie/day?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setData(data.results)
+                    setLoading(false)
+                    scrollToTop()
+                })
+        } else if (val === 'tv_popular') {
+            let result = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setData(data.results)
+                    setLoading(false)
+                    scrollToTop()
+                })
+        } else {
+            const result = await fetch(`https://api.themoviedb.org/3/movie/${val}?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setData(data.results)
+                    setLoading(false)
+                    scrollToTop()
+                })
+        }
+    }
 
     function changeCategory(event: any) {
         setVal(event.target.value)
