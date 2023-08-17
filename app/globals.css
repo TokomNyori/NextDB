@@ -6,7 +6,7 @@
 html,
 body {
   height: 100%;
-  @apply bg-black;
+  @apply bg-gray-950;
   @apply text-slate-300;
 }
 
@@ -219,5 +219,11 @@ a {
     overflow: auto;
     padding: 1rem;
     flex-wrap: wrap;
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
   }
 }

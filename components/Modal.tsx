@@ -28,6 +28,7 @@ const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies
     // @ts-ignore
     const details = movies.map(movie => {
         if (movie.id === currentID) {
+            let vote_average = movie.vote_average.toFixed(1);
             return (
                 <div className='.content-wrapper' key={currentID}>
                     <div className="modal-heading">
@@ -37,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies
                     <div className='modal-body'>
                         <div className='details'>
                             <div className='movie-description text-left'>
-                                <h1><span className='font-bold'>Vote Average:</span> {movie.vote_average}</h1>
+                                <h1><span className='font-bold'>Vote Average:</span> {vote_average}</h1>
                                 <p><span className='font-bold'>Original Lang:</span> {movie.original_language}</p>
                                 <div>
                                     <p className='font-bold'>Genres:</p>
