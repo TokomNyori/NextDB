@@ -35,7 +35,7 @@ export default function MainLayout() {
                 {
                     loading: 'Loading...',
                     success: <b className="capitalize">{mirrorVal}</b>,
-                    error: <b>Server Error.</b>,
+                    error: <b>Server Error: 🥺 Please refresh the page and try again.</b>,
                 },
                 {
                     style: {
@@ -45,7 +45,10 @@ export default function MainLayout() {
                         zIndex: 100,
                     },
                     success: {
-                        duration: 2000,
+                        duration: 3000,
+                    },
+                    error: {
+                        duration: 5000,
                     },
                 }
             );
