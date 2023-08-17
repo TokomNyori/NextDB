@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+html,
+body {
+  height: 100%;
+  @apply bg-black;
+  @apply text-slate-300;
+}
+
+body {
+  margin-bottom: 2rem;
+}
+
+.sorting-nav {
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0.625rem);
+  border-radius: 10px;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.sorting-nav select {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+select option {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.fixed-nav {
+  position: fixed;
+  color: #fff;
+  top: -22px;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0.625rem);
+  border-radius: 10px;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: opacity 2s ease-in-out;
+  animation-name: modalopen;
+  animation-duration: 1s;
+}
+
+.fixed-nav select {
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.logo-main {
+  font-weight: 700;
+  font-size: 2rem;
+  text-shadow: 0 0 10px #fff;
+  animation: glowing 2.5s infinite ease-in-out;
+  transition: text-shadow 2s ease-in-out;
+}
+
+
+@keyframes glowing {
+  0% {
+    text-shadow: 0 0 10px #fff;
+  }
+
+  10% {
+    text-shadow: 0 0 15px #fff;
+  }
+
+  20% {
+    text-shadow: 0 0 20px #fff;
+  }
+
+  30% {
+    text-shadow: 0 0 25px #fff;
+  }
+
+  40% {
+    text-shadow: 0 0 30px #fff;
+  }
+
+  50% {
+    text-shadow: 0 0 35px #fff;
+  }
+
+  60% {
+    text-shadow: 0 0 30px #fff;
+  }
+
+  70% {
+    text-shadow: 0 0 25px #fff;
+  }
+
+  80% {
+    text-shadow: 0 0 20px #fff;
+  }
+
+  90% {
+    text-shadow: 0 0 15px #fff;
+  }
+
+  100% {
+    text-shadow: 0 0 10px #fff;
+  }
+}
+
+.modal {
+  width: 38%;
+  max-height: 72%;
+  padding: 1rem;
+  flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0.625rem);
+  border-radius: 10px;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.fix-modal {
+  position: fixed;
+  animation-name: modalopen;
+  animation-duration: 1s;
+}
+
+.hide-modal {
+  display: none;
+  visibility: hidden;
+}
+
+.content-wrapper {
+  padding: 1rem;
+}
+
+.modal-heading {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.close-btn {
+  margin-left: auto;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: -15px;
+  color: #8ac926;
+}
+
+.modal-body {
+  text-align: center;
+  flex: 1;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.movie-description {
+  grid-column: 1;
+  text-align: left;
+}
+
+.modal-image {
+  max-height: 8.5rem;
+  grid-column: 2;
+  text-align: right;
+  margin-left: auto;
+  border-radius: 10px;
+}
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.greet {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  border: 1px solid #334459;
+  padding: 0.3rem 0.5rem;
+  border-radius: 12%;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.greet:hover {
+  border-color: #4d6480;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer {
+  border-top: 1px solid #334459;
+  text-align: center;
+  width: 96%;
+  padding: 1rem;
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 90%;
+    height: 52%;
+    overflow: auto;
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+}
