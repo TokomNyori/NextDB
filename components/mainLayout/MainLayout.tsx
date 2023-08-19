@@ -248,14 +248,14 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             }
             <div className="grid grid-cols-2 gap-10 md:gap-10">
                 <Link
-                    className={`${page_name === 'movies' && 'border-b-[0.3px] border-slate-600'} text-center
+                    className={`${page_name === 'movies' && 'border-b-[1px] border-slate-600'} text-center
                                   flex justify-center items-center gap-1 px-2 py-1
                                 hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/' onClick={() => { setLoading(true) }}>
                     <MdOutlineLocalMovies className='text-green-400' />
                     <div>Movies</div>
                 </Link>
-                <Link className={`${page_name === 'tv-series' && 'border-b-[0.3px] border-slate-600'} text-center
+                <Link className={`${page_name === 'tv-series' && 'border-b-1px] border-slate-600'} text-center
                                     flex justify-center items-center gap-1 px-2 py-1
                                   hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/tv-series' onClick={() => { setLoading(true) }}>
