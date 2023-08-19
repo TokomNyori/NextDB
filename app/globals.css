@@ -259,6 +259,10 @@ a {
     bottom: 4%;
     left: 36%;
   }
+
+  .greet {
+    font-size: 1.05rem;
+  }
 }
 
 @media (max-width: 396px) {
