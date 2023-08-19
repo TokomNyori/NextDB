@@ -10,6 +10,7 @@ import Footer from "../Footer";
 import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
+import { FaErlang } from "react-icons/fa";
 
 export default function MainLayout({ page_name }: { page_name: string }) {
     const mValue = page_name === 'movies' ? 'trending (movies)' : 'trending (tv series)';
@@ -186,6 +187,18 @@ export default function MainLayout({ page_name }: { page_name: string }) {
         setModalState(false)
     }
 
+    function tabLoading(e: any) {
+        const clickedLink = e.currentTarget; // Get the clicked link element
+        const linkId = clickedLink.id; // Get the id attribute of the clicked link
+        if (page_name === 'movies' && linkId === 'linkMovie') {
+            setLoading(false)
+        } else if (page_name === 'tv-series' && linkId === 'linkTv') {
+            setLoading(false)
+        } else {
+            setLoading(true)
+        }
+    }
+
     const scrollToTop = () => {
         const duration = 1000; // Adjust the duration of the scroll animation
         const startTime = performance.now();
@@ -251,7 +264,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                     className={`${page_name === 'movies' && 'border-b-[1px] border-slate-300'} text-center
                                   flex justify-center items-center gap-1 px-2 py-1
                                 hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
-                    href='/' onClick={() => { setLoading(true) }}>
+                    href='/' onClick={tabLoading} id="linkMovie">
                     <MdOutlineLocalMovies className='text-green-400' />
                     <div>Movies</div>
                 </Link>
@@ -259,7 +272,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                     className={`${page_name === 'tv-series' && 'border-b-[1px] border-slate-300'} text-center
                                     flex justify-center items-center gap-1 px-2 py-1
                                   hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
-                    href='/tv-series' onClick={() => { setLoading(true) }}>
+                    href='/tv-series' onClick={tabLoading} id="linkTv" >
                     <PiTelevisionSimpleBold className='text-red-400' />
                     <div>TV Series</div>
                 </Link>
