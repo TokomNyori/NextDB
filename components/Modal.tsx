@@ -10,10 +10,11 @@ interface ModalProps {
     movies: any,
     genres: any,
     val: string,
+    page_name: string,
 }
 
 
-const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies, genres, val, key }) => {
+const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies, genres, val, key, page_name }) => {
     // for (let i = 0; i < 2; i++) {
     //     console.log(genres[i].name)
     // }
@@ -32,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies
             return (
                 <div className='.content-wrapper' key={currentID}>
                     <div className="modal-heading">
-                        <div className='mr-5'>{val === 'tv_popular' ? movie.name : movie.title}</div>
+                        <div className='mr-5'>{page_name === 'tv-series' ? movie.name : movie.title}</div>
                         <div className='close-btn cursor-pointer' onClick={closeModal}>X</div>
                     </div>
                     <div className='modal-body'>
@@ -60,7 +61,9 @@ const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies
                             </div>
                         </div>
                         <div className='bottom-part text-left'>
-                            <p><span className='font-bold'>Release Date:</span> {movie.release_date}</p>
+                            <p><span className='font-bold'>{page_name === 'tv-series' ? 'First Air Date: ' : 'Releasse Date: ' }</span> 
+                            {page_name === 'tv-series' ? movie.first_air_date : movie.release_date}
+                            </p>
                             <p>
                                 <span className='font-bold text-green-300'>Overview:</span> {movie.overview}
                             </p>

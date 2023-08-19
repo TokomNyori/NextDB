@@ -14,10 +14,9 @@ export default function Footer() {
                 <TbBrandNextjs className='text-xl text-slate-200' />
                 <SiTailwindcss className='text-xl text-blue-400' />
                 <SiTypescript className='text-xl text-blue-400' />
-                <SiAxios className='text-xl text-white' />
                 <SiThemoviedatabase className='text-xl text-green-400' />
             </div>
-            <p className='text-sm mt-1'>&lt; Developed using Next.js, Tailwind CSS, TypeScript, Axios and TMDB API /&gt;</p>
+            <p className='text-sm mt-1'>&lt; Developed using Next.js, Tailwind CSS, TypeScript and the TMDB API /&gt;</p>
         </div>
     )
 }
