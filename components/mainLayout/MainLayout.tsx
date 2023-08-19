@@ -143,7 +143,6 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                         scrollToTop()
                     })
             }
-            // https://api.themoviedb.org/3/trending/tv/
 
         }
     }
