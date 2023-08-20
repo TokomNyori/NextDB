@@ -223,6 +223,19 @@ a {
   left: 52%;
 }
 
+.person-movie-images-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.person-movie-images-container .person-movie-images {
+  width: 32%;
+}
+
 @media (max-width: 968px) {
   .insta-link {
     position: absolute;

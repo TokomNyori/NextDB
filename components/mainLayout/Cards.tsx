@@ -5,13 +5,7 @@ interface CardsProps {
     id: any,
     key: any,
     title: string,
-    overview: string,
-    vote_average: number,
-    vote_count: number,
-    release_date: string,
     poster_path: string,
-    original_language: string,
-    adult: boolean,
     changeModal: any,
 }
 
@@ -19,13 +13,7 @@ const Cards: React.FC<CardsProps> = ({
     id,
     key,
     title,
-    overview,
-    vote_average,
-    vote_count,
-    release_date,
     poster_path,
-    original_language,
-    adult,
     changeModal,
 }) => {
     const imagePath = 'https://image.tmdb.org/t/p/original';

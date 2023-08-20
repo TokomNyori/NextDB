@@ -5,12 +5,12 @@ import Cards from "./Cards";
 import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import Modal from "../Modal";
-import ModalTwo from "../ModalTwo";
 import Footer from "../Footer";
 import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
-import { FaErlang } from "react-icons/fa";
+import { GoPeople } from 'react-icons/go'
+import { IoPeopleOutline } from 'react-icons/io5'
 
 export default function MainLayout({ page_name }: { page_name: string }) {
     const mValue = page_name === 'movies' ? 'trending (movies)' : 'trending (tv series)';
@@ -124,8 +124,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                         scrollToTop()
                     })
             }
-        }
-        else {
+        } else {
             if (val === 'trending') {
                 const result = await fetch(`https://api.themoviedb.org/3/${val}/tv/day?api_key=${API_KEY}`)
                     .then(res => res.json())
@@ -146,8 +145,6 @@ export default function MainLayout({ page_name }: { page_name: string }) {
 
         }
     }
-
-    console.log(data)
 
     function changeCategory(event: any) {
         const eVal = event.target.value
@@ -230,12 +227,6 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 key={item['id']}
                 title={page_name === 'tv-series' ? item['name'] : item['title']}
                 poster_path={item['poster_path']}
-                overview={item['overview']}
-                release_date={page_name === 'tv-series' ? item['first_air_date'] : item['release_date']}
-                vote_average={item['vote_average']}
-                vote_count={item['vote_count']}
-                adult={item['adult']}
-                original_language={item['original_language']}
                 changeModal={changeModal}
             />
         )
@@ -258,7 +249,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 </div>
 
             }
-            <div className="grid grid-cols-2 gap-10 md:gap-10">
+            <div className="grid grid-cols-3 gap-4">
                 <Link
                     className={`${page_name === 'movies' && 'border-b-[1px] border-slate-300'} text-center
                                   flex justify-center items-center gap-1 px-2 py-1
@@ -274,6 +265,14 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                     href='/tv-series' onClick={tabLoading} id="linkTv" >
                     <PiTelevisionSimpleBold className='text-red-400' />
                     <div>TV Series</div>
+                </Link>
+                <Link
+                    className={`${page_name === 'people' && 'border-b-[1px] border-slate-300'} text-center
+                                    flex justify-center items-center gap-1 px-2 py-1
+                                  hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
+                    href='/people' onClick={tabLoading} id="linkPeople" >
+                    <GoPeople className='text-blue-400 text-lg' />
+                    <div>People</div>
                 </Link>
             </div>
             <div className={`sorting-nav my-6 ml-2 flex gap-2 items-center ${isSticky ? 'fixed-nav' : ''}`}>

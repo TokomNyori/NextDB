@@ -65,7 +65,7 @@ const Modal: React.FC<ModalProps> = ({ modalState, closeModal, currentID, movies
                             {page_name === 'tv-series' ? movie.first_air_date : movie.release_date}
                             </p>
                             <p>
-                                <span className='font-bold text-green-300'>Overview:</span> {movie.overview}
+                                <span className='font-bold text-green-400'>Overview:</span> {movie.overview}
                             </p>
                             <div className='mt-4 mb-5'>
                                 <img
