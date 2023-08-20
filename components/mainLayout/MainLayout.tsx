@@ -256,7 +256,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                                 hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/' onClick={tabLoading} id="linkMovie">
                     <MdOutlineLocalMovies className='text-green-400' />
-                    <div>Movies</div>
+                    <div>Moviesss</div>
                 </Link>
                 <Link
                     className={`${page_name === 'tv-series' && 'border-b-[1px] border-slate-300'} text-center
