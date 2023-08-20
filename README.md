@@ -1,12 +1,9 @@
 # NextDB - Movie and TV Series Information Web App
-
-![NextDB Demo](https://next-ithzg5zfz-tokomnyori.vercel.app/)
-
 NextDB is a web app that provides users with useful information about movies and TV series, leveraging the TMDB API. The app is built using Next.js, TypeScript, Tailwind CSS, and the TMDB API.
 
 ## Demo
 
-Check out the live demo of NextDB: [NextDB Demo](https://next-ithzg5zfz-tokomnyori.vercel.app/)
+Check out the live demo of NextDB: [NextDB Demo](https://next-ithzg5zfz-tokomnyori.vercel.app/){:target="_blank"}
 
 ## Features
 
@@ -25,3 +22,17 @@ To clone and run NextDB on your local machine, follow these steps:
    npm install
    npm run dev
    ```
+
+
+Technologies Used
+Next.js: A React framework for building server-rendered and statically-rendered applications.
+TypeScript: A statically typed superset of JavaScript that helps catch errors early.
+Tailwind CSS: A utility-first CSS framework for quickly building custom designs.
+TMDB API: The Movie Database API, used to fetch movie and TV series information.
+Contributing
+Contributions are welcome! If you find any issues or want to enhance the app, feel free to open a pull request.
+
+License
+This project is licensed under the MIT License.
+
+Created by Tokom Nyori
