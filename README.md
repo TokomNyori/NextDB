@@ -24,15 +24,16 @@ To clone and run NextDB on your local machine, follow these steps:
    ```
 
 
-Technologies Used
+## Technologies Used
 Next.js: A React framework for building server-rendered and statically-rendered applications.
 TypeScript: A statically typed superset of JavaScript that helps catch errors early.
 Tailwind CSS: A utility-first CSS framework for quickly building custom designs.
 TMDB API: The Movie Database API, used to fetch movie and TV series information.
-Contributing
+
+## Contributing
 Contributions are welcome! If you find any issues or want to enhance the app, feel free to open a pull request.
 
-License
+## License
 This project is licensed under the MIT License.
 
 Created by Tokom Nyori
