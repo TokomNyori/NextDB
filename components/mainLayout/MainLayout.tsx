@@ -249,7 +249,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 </div>
 
             }
-            <div className="grid grid-cols-3 gap-4 md:gap-4">
+            <div className="grid grid-cols-3 gap-3 md:gap-4">
                 <Link
                     className={`${page_name === 'movies' && 'border-b-[1px] border-slate-300'} text-center
                                   flex justify-center items-center gap-1 px-2 py-1
