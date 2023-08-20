@@ -78,7 +78,11 @@ const ModalPeople: React.FC<ModalProps> = ({ modalState, closeModal, currentID, 
                                     />
                                 })}
                             </div>
-                            {detail.biography && <p><span className='font-bold text-blue-400'>Biography: </span> {detail.biography}</p>}
+                            {detail.biography &&
+                                <p className="pb-8">
+                                    <span className='font-bold text-blue-400'>Biography: </span> {detail.biography}
+                                </p>
+                            }
                         </div>
                     </div>
                 </div>
