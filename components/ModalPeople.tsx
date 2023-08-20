@@ -72,6 +72,7 @@ const ModalPeople: React.FC<ModalProps> = ({ modalState, closeModal, currentID, 
                             <div className='mt-2 mb-5 person-movie-images-container'>
                                 {data.known_for?.map((known_for: any) => {
                                     return <img
+                                        key={currentID}
                                         className='rounded-lg person-movie-images'
                                         src={`https://image.tmdb.org/t/p/original${known_for.poster_path}`} alt="movie posters"
                                     />
