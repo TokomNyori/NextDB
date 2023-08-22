@@ -27,13 +27,13 @@ const Modal: React.FC<ModalProps> = (
 
     const genres = details.genres?.map((genre: any) => {
         return (
-            <p>{genre.name}</p>
+            <p key={currentID}>{genre.name}</p>
         )
     })
 
     const castNames = cast?.map((name: any) => {
         return (
-            <p>{name.name}</p>
+            <p key={currentID}>{name.name}</p>
         )
     })
 
