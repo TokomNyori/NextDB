@@ -287,7 +287,7 @@ a {
 @media (max-width: 560px) {
   .modal {
     width: 95%;
-    height: 65%;
+    height: 68%;
     overflow: auto;
     padding: 1.5rem 1rem;
     flex-wrap: wrap;
