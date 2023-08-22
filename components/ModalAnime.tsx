@@ -113,7 +113,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                             <div className='movie-description text-left'>
                                 {data.score ?
                                     <p>
-                                        <span className='font-bold'>Rating: </span>
+                                        <span className='font-bold'>Rating: </span> 
                                         {data.score} {`(${vall})`}
                                     </p> :
                                     <p>
