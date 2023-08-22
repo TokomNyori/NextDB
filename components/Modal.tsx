@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { ReactNode } from "react"
 import YouTube from "react-youtube"
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 interface ModalProps {
     modalState: boolean,
@@ -87,7 +89,7 @@ const Modal: React.FC<ModalProps> = (
                             <div className='close-btn cursor-pointer' onClick={closeModal}>X</div>
                         </div>
                         <div className='modal-body'>
-                            <div className='details'>
+                            <div className=''>
                                 <div className='movie-description text-left'>
                                     <h1><span className='font-bold'>Vote Average:</span> {vote_average}</h1>
                                     <p><span className='font-bold'>Status:</span> {details.status}</p>
@@ -95,23 +97,25 @@ const Modal: React.FC<ModalProps> = (
                                         {page_name === 'tv-series' ? movie.first_air_date : movie.release_date}
                                     </p>
                                 </div>
-                                <div className='modal-image-cover'>
+                                {/* <div className='modal-image-cover'>
                                     <img
                                         className='modal-image'
                                         src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt=""
                                     />
-                                </div>
+                                </div> */}
                             </div>
                             <div className="rounded-sm text-left">
                                 <span className='font-bold text-green-400'>Trailer video: </span>
-                                <YouTube
-                                    className="rounded-lg bg-gray-900"
-                                    opts={opts}
-                                    videoId={yID ? yID : 'Not Available'}
-                                    onPlay={() => { setVideoPlaying(true) }}
-                                    onPause={() => { setVideoPlaying(false) }}
-                                    ref={ytRef}
-                                />
+                                <div className="youtube-container">
+                                    <YouTube
+                                        className="rounded-lg"
+                                        opts={opts}
+                                        videoId={yID ? yID : 'Not Available'}
+                                        onPlay={() => { setVideoPlaying(true) }}
+                                        onPause={() => { setVideoPlaying(false) }}
+                                        ref={ytRef}
+                                    />
+                                </div>
                             </div>
                             <div className='bottom-part text-left mt-2'>
                                 <p><span className='font-bold'>Original Language:</span> {language}</p>

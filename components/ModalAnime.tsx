@@ -113,7 +113,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                             <div className='movie-description text-left'>
                                 {data.score ?
                                     <p>
-                                        <span className='font-bold'>Rating: </span> 
+                                        <span className='font-bold'>Rating: </span>
                                         {data.score} {`(${vall})`}
                                     </p> :
                                     <p>
@@ -138,14 +138,16 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                             {data.trailer &&
                                 <div className="rounded-sm">
                                     <span className='font-bold text-green-400'>Trailer video: </span>
-                                    <YouTube
-                                        className="rounded-lg bg-gray-900"
-                                        opts={opts}
-                                        videoId={data.trailer.youtube_id}
-                                        onPlay={() => { setVideoPlaying(true) }}
-                                        onPause={() => { setVideoPlaying(false) }}
-                                        ref={ytRef}
-                                    />
+                                    <div className="youtube-container">
+                                        <YouTube
+                                            className="rounded-lg bg-gray-900"
+                                            opts={opts}
+                                            videoId={data.trailer.youtube_id}
+                                            onPlay={() => { setVideoPlaying(true) }}
+                                            onPause={() => { setVideoPlaying(false) }}
+                                            ref={ytRef}
+                                        />
+                                    </div>
                                 </div>
                             }
                             {

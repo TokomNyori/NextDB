@@ -317,7 +317,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 </select>
             </div>
             <div
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 px-2 md:px-6 lg:px-12">
+                className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12">
                 {movieData}
             </div>
             <Toaster />

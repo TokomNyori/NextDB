@@ -46,6 +46,7 @@ select option {
   transition: opacity 2s ease-in-out;
   animation-name: modalopen;
   animation-duration: 1s;
+  z-index: 100;
 }
 
 .fixed-nav select {
@@ -122,6 +123,7 @@ select option {
 }
 
 .fix-modal {
+  z-index: 200;
   position: fixed;
   animation-name: modalopen;
   animation-duration: 1s;
@@ -256,6 +258,34 @@ a {
   width: 32%;
 }
 
+.youtube-container {
+  height: 274px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card {
+  position: relative;
+}
+
+.card-title {
+  position: absolute;
+  color: #fff;
+  display: inline-block;
+  width: 100%;
+  top: 0.7rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.2rem 0.25rem 0.1rem 0.35rem;
+  margin-right: 0.8rem;
+}
+
+.card-image {
+  min-height: 17rem;
+}
+
 @media (max-width: 968px) {
   .details-two {
     display: grid;
@@ -287,7 +317,7 @@ a {
 @media (max-width: 560px) {
   .modal {
     width: 95%;
-    height: 70%;
+    height: 75%;
     overflow: auto;
     padding: 1.5rem 1rem;
     flex-wrap: wrap;
@@ -320,6 +350,11 @@ a {
     font-size: 1.05rem;
   }
 
+  .card-image {
+    min-height: 16rem;
+    max-height: 18rem;
+  }
+
   .sorting-nav {
     padding: 0.3rem 0.6rem;
     background-color: rgba(255, 255, 255, 0.1);
@@ -328,6 +363,10 @@ a {
     overflow: auto;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .fixed-nav {
+    padding: 0.5rem 1rem;
   }
 }
 
