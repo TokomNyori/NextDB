@@ -5,8 +5,9 @@ interface CardsProps {
     id: any,
     key: any,
     title: string,
-    poster_path: string,
+    poster_path: any,
     changeModal: any,
+    page_name: string,
 }
 
 const Cards: React.FC<CardsProps> = ({
@@ -15,15 +16,21 @@ const Cards: React.FC<CardsProps> = ({
     title,
     poster_path,
     changeModal,
+    page_name,
 }) => {
     const imagePath = 'https://image.tmdb.org/t/p/original';
+    const poster = page_name === 'anime' ? poster_path.jpg.image_url : imagePath + poster_path;
+
     //<img src={`https://image.tmdb.org/t/p/original${poster}`} width={400} height={400} />
     return (
         <div className="border-[0.3px] border-gray-600 rounded-lg pt-3 px-1 pb-1" key={key}>
-            <h4 className="text-sm lg:text-[0.95rem] font-bold cursor-pointer px-2 pb-2 truncate ..." onClick={(event) => changeModal(event, id)}>{title}</h4>
+            <h4 className="text-sm lg:text-[0.95rem] font-bold cursor-pointer px-2 pb-2 truncate ..."
+                onClick={(event) => changeModal(event, id)}>
+                {title}
+            </h4>
             <div className="cursor-pointer" onClick={(event) => changeModal(event, id)}>
                 <Image
-                    src={`https://image.tmdb.org/t/p/original${poster_path}`} width={400} height={400} alt="poster"
+                    src={poster} width={400} height={400} alt="poster"
                 />
             </div>
         </div>

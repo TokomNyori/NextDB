@@ -1,8 +1,6 @@
-import Navbar from '@/components/Navbar'
 import MainLayout from '@/components/mainLayout/MainLayout'
-import Image from 'next/image'
 
-export default function Movies() {
+export default function TvSeries() {
   const page_name: string = 'tv-series';
   return (
     <main className="mt-4 pb-16">

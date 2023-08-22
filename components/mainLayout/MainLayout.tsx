@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import Cards from "./Cards";
 import axios from "axios";
@@ -9,8 +9,7 @@ import Footer from "../Footer";
 import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
-import { GoPeople } from 'react-icons/go'
-import { IoPeopleOutline } from 'react-icons/io5'
+import { SiMyanimelist } from 'react-icons/si'
 
 export default function MainLayout({ page_name }: { page_name: string }) {
     const mValue = page_name === 'movies' ? 'trending (movies)' : 'trending (tv series)';
@@ -20,8 +19,11 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     const [isSticky, setIsSticky] = useState(false)
     const [loading, setLoading] = useState(true)
     const [modalState, setModalState] = useState(false)
-    const [genres, setGenres] = useState([])
+    const [details, setDetails] = useState([])
     const [currentID, setCurrentID] = useState()
+    const [youtubeID, setYoutubeID] = useState()
+    const [cast, setCast] = useState()
+    const youtubeRef = useRef(null);
     const API_KEY = "88477ce165409d6acab148e6bbcff0a7"
 
     useEffect(() => {
@@ -35,7 +37,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 //     }),
                 workingWithData(),
                 {
-                    loading: 'Loading...',
+                    loading: 'Lights, Camera, Loading...',
                     success: <b className="capitalize">{mirrorVal}</b>,
                     error: <b>Server Error: 🥺 Please refresh the page and try again.</b>,
                 },
@@ -72,15 +74,46 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             fetch(`https://api.themoviedb.org/3/tv/${currentID}?api_key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log('Language')
+                    console.log(data)
+                    setDetails(data)
                     setLoading(false)
-                    setGenres(data.genres)
+                })
+
+            fetch(`https://api.themoviedb.org/3/tv/${currentID}/videos?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setYoutubeID(data.results)
+                    setLoading(false)
+                })
+
+            fetch(`https://api.themoviedb.org/3/tv/${currentID}/credits?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setCast(data.cast)
+                    setLoading(false)
                 })
         } else {
             fetch(`https://api.themoviedb.org/3/movie/${currentID}?api_key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log('Language')
+                    console.log(data)
+                    setDetails(data)
                     setLoading(false)
-                    setGenres(data.genres)
+                })
+
+            fetch(`https://api.themoviedb.org/3/movie/${currentID}/videos?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setYoutubeID(data.results)
+                    setLoading(false)
+                })
+            fetch(`https://api.themoviedb.org/3/movie/${currentID}/credits?api_key=${API_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    setCast(data.cast)
+                    setLoading(false)
                 })
         }
     }, [currentID])
@@ -134,7 +167,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                         scrollToTop()
                     })
             } else {
-                const result = await fetch(`https://api.themoviedb.org/3/tv/${val}?api_key=${API_KEY}`)
+                const result = await fetch(`https://api.themoviedb.org/3/tv/${val}?api_key=${API_KEY}&language=en-US&sort_by=popularity`)
                     .then(res => res.json())
                     .then(data => {
                         setData(data.results)
@@ -164,11 +197,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 setMirrorVal('now playing (tv series)')
             } else if (eVal === 'on_the_air') {
                 setMirrorVal('on the air (tv series)')
-            }
-            else if (eVal === 'airing_today') {
-                setMirrorVal('airing today (tv series)')
-            }
-            else {
+            } else {
                 setMirrorVal(eVal + ' tv series')
             }
         }
@@ -181,6 +210,10 @@ export default function MainLayout({ page_name }: { page_name: string }) {
 
     function closeModal(event: any) {
         setModalState(false)
+        if (youtubeRef.current) {
+            // @ts-ignore
+            youtubeRef.current.getInternalPlayer().pauseVideo();
+        }
     }
 
     function tabLoading(e: any) {
@@ -223,6 +256,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     const movieData = data.map(item => {
         return (
             <Cards
+                page_name={page_name}
                 id={item['id']}
                 key={item['id']}
                 title={page_name === 'tv-series' ? item['name'] : item['title']}
@@ -249,7 +283,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 </div>
 
             }
-            <div className="grid grid-cols-3 gap-3 md:gap-4">
+            <div className={`grid grid-cols-3 gap-3 md:gap-4 ${isSticky ? 'fixed-nav-two' : ''}`}>
                 <Link
                     className={`${page_name === 'movies' && 'border-b-[1px] border-slate-300'} text-center
                                   flex justify-center items-center gap-1 px-2 py-1
@@ -270,9 +304,9 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                     className={`${page_name === 'people' && 'border-b-[1px] border-slate-300'} text-center
                                     flex justify-center items-center gap-1 px-2 py-1
                                   hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
-                    href='/people' onClick={tabLoading} id="linkPeople" >
-                    <GoPeople className='text-blue-400 text-lg' />
-                    <div>People</div>
+                    href='/anime' onClick={tabLoading} id="linkPeople" >
+                    <SiMyanimelist className='text-blue-400 text-2xl' />
+                    <div>Anime</div>
                 </Link>
             </div>
             <div className={`sorting-nav my-6 ml-2 flex gap-2 items-center ${isSticky ? 'fixed-nav' : ''}`}>
@@ -292,7 +326,6 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                         <option value="trending">Trending</option>
                         <option value="top_rated">Top Rated</option>
                         <option value="popular">Popular</option>
-                        <option value="airing_today">Airing Today</option>
                         <option value="on_the_air">On the Air</option>
                     </select>}
             </div>
@@ -305,8 +338,9 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 movies={data} currentID={currentID}
                 modalState={modalState} closeModal={closeModal}
                 val={val} page_name={page_name}
-                genres={genres}
+                details={details}
                 key={currentID}
+                youtubeID={youtubeID} ytRef={youtubeRef} cast={cast}
             />
             <Footer />
         </div>

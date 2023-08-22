@@ -19,14 +19,14 @@ const ModalTwo: React.FC<ModalTwoProps> = ({ greet, greetings }) => {
                         <div className='close-btn cursor-pointer' onClick={greetings}>X</div>
                     </div>
                     <div className='modal-body'>
-                        <div className='details'>
+                        <div className='details-two'>
                             <div className='movie-description text-left'>
                                 <h1 className='text-red-400 font-bold'>I am Tokom,</h1>
                                 <p>a mobile and web app developer with a passion for nutrition science and economics.</p>
                             </div>
                             <div className='modal-image-cover mb-2'>
                                 <img
-                                    className='modal-image h-full'
+                                    className='modal-image-two h-full'
                                     src="/images/Mee.jpg" alt=""
                                 />
                                 <a
