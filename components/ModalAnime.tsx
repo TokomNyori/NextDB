@@ -109,7 +109,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                         <div className='close-btn cursor-pointer' onClick={closeModal}>X</div>
                     </div>
                     <div className='modal-body'>
-                        <div className='details'>
+                        <div className=''>
                             <div className='movie-description text-left'>
                                 {data.score ?
                                     <p>
@@ -127,12 +127,12 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                                     null
                                 }
                             </div>
-                            <div className='modal-image-cover'>
+                            {/* <div className='modal-image-cover'>
                                 <img
                                     className='modal-image'
                                     src={data.images.jpg.large_image_url} alt=""
                                 />
-                            </div>
+                            </div> */}
                         </div>
                         <div className='text-left'>
                             {data.trailer &&
