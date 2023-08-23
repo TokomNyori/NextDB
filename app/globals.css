@@ -380,6 +380,7 @@ a {
   .card-skeleton {
     min-height: 16rem;
     max-height: 18rem;
+    width: 12.525rem;
   }
 
   .sorting-nav {
@@ -402,5 +403,11 @@ a {
     position: absolute;
     bottom: 4%;
     left: 38%;
+  }
+
+  .card-skeleton {
+    min-height: 16rem;
+    max-height: 18rem;
+    width: 11.225rem;
   }
 }
