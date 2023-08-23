@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import YouTube from "react-youtube"
 
 interface ModalProps {
@@ -19,7 +19,6 @@ interface ModalProps {
 
 const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, datas, val, key, page_name, detail, ytRef }) => {
     const [isVideoPlaying, setVideoPlaying] = useState(false);
-
 
     // @ts-ignore
     const details = datas?.map(data => {
@@ -138,9 +137,9 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                             {data.trailer &&
                                 <div className="rounded-sm">
                                     <span className='font-bold text-green-400'>Trailer video: </span>
-                                    <div className="youtube-container">
+                                    <div className={`youtube-container skeleton`}>
                                         <YouTube
-                                            className="rounded-lg bg-gray-900"
+                                            className="rounded-lg"
                                             opts={opts}
                                             videoId={data.trailer.youtube_id}
                                             onPlay={() => { setVideoPlaying(true) }}

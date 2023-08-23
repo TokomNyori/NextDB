@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ReactNode } from "react"
 import YouTube from "react-youtube"
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import {AiOutlineCloseCircle} from 'react-icons/ai'
 
 interface ModalProps {
     modalState: boolean,
@@ -86,7 +85,7 @@ const Modal: React.FC<ModalProps> = (
                     <div className='.content-wrapper' key={currentID}>
                         <div className="modal-heading">
                             <div className='mr-5'>{page_name === 'tv-series' ? movie.name : movie.title}</div>
-                            <div className='close-btn cursor-pointer' onClick={closeModal}>X</div>
+                            <div className='close-btn cursor-pointer font-bold' onClick={closeModal}>X</div>
                         </div>
                         <div className='modal-body'>
                             <div className=''>
@@ -106,7 +105,7 @@ const Modal: React.FC<ModalProps> = (
                             </div>
                             <div className="rounded-sm text-left">
                                 <span className='font-bold text-green-400'>Trailer video: </span>
-                                <div className="youtube-container">
+                                <div className={`youtube-container skeleton`}>
                                     <YouTube
                                         className="rounded-lg"
                                         opts={opts}

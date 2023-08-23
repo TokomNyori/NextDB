@@ -109,6 +109,10 @@ select option {
   }
 }
 
+.modal-blur {
+  z-index: 300;
+}
+
 .modal {
   width: 40%;
   max-height: 80%;
@@ -156,7 +160,9 @@ select option {
   font-weight: 700;
   margin-top: -12px;
   color: #8ac926;
+  @apply text-red-400;
   border: 1px solid #8ac926;
+  @apply border-red-400;
   border-radius: 50%;
   padding: 0 0.5rem;
 }
@@ -261,10 +267,6 @@ a {
 .youtube-container {
   height: 274px;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.3);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .card {
@@ -273,7 +275,7 @@ a {
 
 .card-title {
   position: absolute;
-  color: #fff;
+  color: #eeeeee;
   display: inline-block;
   width: 100%;
   top: 0.7rem;
@@ -284,6 +286,26 @@ a {
 
 .card-image {
   min-height: 17rem;
+}
+
+.card-skeleton {
+  min-height: 17rem;
+  width: 12.625rem;
+}
+
+.skeleton {
+  opacity: 0.8;
+  animation: skeleton-loading 0.7s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #202020;
+  }
+
+  100% {
+    background-color: #444;
+  }
 }
 
 @media (max-width: 968px) {
@@ -351,6 +373,11 @@ a {
   }
 
   .card-image {
+    min-height: 16rem;
+    max-height: 18rem;
+  }
+
+  .card-skeleton {
     min-height: 16rem;
     max-height: 18rem;
   }

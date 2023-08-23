@@ -1,6 +1,6 @@
-# NextDB - Movie and TV Series Information Web App
+# NextDB - Movies, Anime and TV Series Information Web App
 
-NextDB is a web app that provides users with useful information about movies and TV series, leveraging the TMDB API. The app is built using Next.js, TypeScript, Tailwind CSS, and the TMDB API.
+NextDB is a web app that provides users with detailed information and trailer videos about Movies, Anime, and TV series. The app is built using Next.js, TypeScript, and Tailwind CSS, leveraging the TMDB API and Jikan REST API. The app is updated regularly.
 
 ## Demo
 
@@ -8,8 +8,8 @@ Check out the live demo of NextDB: [NextDB Web App Demo](https://next-ithzg5zfz-
 
 ## Features
 
-- Browse and search for movies and TV series information.
-- Access details about each movie or TV show, including people, ratings, and more.
+- Browse movies, anime, and TV series information and trailer videos by category.
+- Get in-depth information about anime from different seasons and beyond.
 - User-friendly interface and responsive design for various devices.
 
 ## How to Use
@@ -30,6 +30,7 @@ Next.js: A React framework for building server-rendered and statically-rendered 
 TypeScript: A statically typed superset of JavaScript that helps catch errors early.
 Tailwind CSS: A utility-first CSS framework for quickly building custom designs.
 TMDB API: The Movie Database API, used to fetch movie and TV series information.
+Jikan REST API: The Anime Database API.
 
 ## Contributing
 

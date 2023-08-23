@@ -4,27 +4,28 @@ import toast, { Toaster } from 'react-hot-toast';
 import Cards from "./Cards";
 import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
-import Modal from "../Modal";
 import Footer from "../Footer";
 import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
-import ModalTwo from "../ModalTwo";
-import ModalPeople from "../ModalAnime";
 import { SiMyanimelist } from 'react-icons/si'
 import ModalAnime from "../ModalAnime";
+import { FaSuperpowers } from 'react-icons/fa'
+import CardSkeleton from "../CardSkeleton";
 
 export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     const [val, setVal] = useState('current season');
     const [mirrorVal, setMirrorVal] = useState('Current Season');
     const [data, setData] = useState([]);
     const [isSticky, setIsSticky] = useState(false)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const [skeletonLoading, setSkeletonLoading] = useState(true)
     const [modalState, setModalState] = useState(false)
     const [details, setDetails] = useState([])
     const [currentID, setCurrentID] = useState()
     const youtubeRef = useRef(null);
     const currentYear = new Date().getFullYear();
+    const [pageName, setPageName] = useState(page_name)
     const API_KEY = "88477ce165409d6acab148e6bbcff0a7"
 
     useEffect(() => {
@@ -65,19 +66,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     }, [val])
 
     useEffect(() => {
-        //setLoading(true)
-        //console.log(currentID)
-        // axios.get('/api/get/', { params: { currentID, val } })
-        //     .then(res => {
-        //         setGenres(res.data)
-        //         setLoading(false)
-        //     })
-        // fetch(`https://api.themoviedb.org/3/person/${currentID}?api_key=${API_KEY}`)
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         setDetails(res)
-        //         setLoading(false)
-        //     })
+        
     }, [currentID])
 
     useEffect(() => {
@@ -100,14 +89,13 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     })
 
     async function workingWithData() {
-        setLoading(true)
+        setSkeletonLoading(true)
         if (val === 'top anime') {
-            //https://api.jikan.moe/v4/seasons/upcoming
             const result = await fetch(`https://api.jikan.moe/v4/top/anime?limit=24`)
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else if (val === 'top manga') {
@@ -115,7 +103,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else if (val === 'upcoming season') {
@@ -123,7 +111,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else if (val === `season winter ${currentYear}`) {
@@ -131,7 +119,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else if (val === `season spring ${currentYear}`) {
@@ -139,7 +127,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else if (val === `season summer ${currentYear}`) {
@@ -147,7 +135,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else if (val === `season fall ${currentYear}`) {
@@ -155,7 +143,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else if (val === `season winter ${currentYear + 1}`) {
@@ -163,7 +151,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         } else {
@@ -171,7 +159,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setData(data.data)
-                    setLoading(false)
+                    setSkeletonLoading(false)
                     scrollToTop()
                 })
         }
@@ -213,10 +201,24 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     function tabLoading(e: any) {
         const clickedLink = e.currentTarget; // Get the clicked link element
         const linkId = clickedLink.id; // Get the id attribute of the clicked link
+        // This prevents loader from loading if the button for same page is Clicked
         if (page_name === 'anime' && linkId === 'linkAnime') {
-            setLoading(false)
+            setSkeletonLoading(false)
         } else {
-            setLoading(true)
+            setSkeletonLoading(true)
+        }
+
+        // Changes the page name
+        if (linkId === 'linkMovie') {
+            setPageName('movies')
+        }
+
+        if (linkId === 'linkTv') {
+            setPageName('tv-series')
+        }
+
+        if (linkId === 'linkAnime') {
+            setPageName('anime')
         }
     }
 
@@ -243,7 +245,10 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
         requestAnimationFrame(animateScroll);
     };
 
-
+    let cardSkeleton: any = [];
+    for (let i = 0; i < 24; i++) {
+        cardSkeleton.push(<CardSkeleton key={currentID} />)
+    }
 
     const movieData = data.map(item => {
         return (
@@ -275,9 +280,24 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 </div>
 
             }
+            {
+                skeletonLoading &&
+                <div className='modal-blur inset-0 bg-black bg-opacity-30
+                        flex justify-center items-center fixed flex-wrap transition duration-150 ease-out z-50'>
+                    <ScaleLoader
+                        color={"#1FDF64"}
+                        loading={loading}
+                        // @ts-ignore
+                        size={0}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                </div>
+
+            }
             <div className="grid grid-cols-3 gap-3 md:gap-4">
                 <Link
-                    className={`${page_name === 'movies' && 'border-b-[1px] border-slate-300'} text-center
+                    className={`${pageName === 'movies' && 'border-b-[1px] border-slate-300'} text-center
                                   flex justify-center items-center gap-1 px-2 py-1
                                 hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/' onClick={tabLoading} id="linkMovie">
@@ -285,7 +305,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                     <div>Movies</div>
                 </Link>
                 <Link
-                    className={`${page_name === 'tv-series' && 'border-b-[1px] border-slate-300'} text-center
+                    className={`${pageName === 'tv-series' && 'border-b-[1px] border-slate-300'} text-center
                                     flex justify-center items-center gap-1 px-2 py-1
                                   hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/tv-series' onClick={tabLoading} id="linkTv" >
@@ -293,11 +313,11 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                     <div>TV Series</div>
                 </Link>
                 <Link
-                    className={`${page_name === 'anime' && 'border-b-[1px] border-slate-300'} text-center
+                    className={`${pageName === 'anime' && 'border-b-[1px] border-slate-300'} text-center
                                     flex justify-center items-center gap-1 px-2 py-1
                                   hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/anime' onClick={tabLoading} id="linkAnime" >
-                    <SiMyanimelist className='text-blue-400 text-2xl' />
+                    <FaSuperpowers className='text-blue-400' />
                     <div>Anime</div>
                 </Link>
             </div>
@@ -318,7 +338,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
             </div>
             <div
                 className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12">
-                {movieData}
+                {skeletonLoading ? cardSkeleton : movieData}
             </div>
             <Toaster />
             <ModalAnime
