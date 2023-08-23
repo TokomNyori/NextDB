@@ -105,7 +105,7 @@ const Modal: React.FC<ModalProps> = (
                             </div>
                             <div className="rounded-sm text-left">
                                 <span className='font-bold text-green-400'>Trailer video: </span>
-                                <div className={`youtube-container skeleton`}>
+                                <div className={`youtube-container skeleton-two`}>
                                     <YouTube
                                         className="rounded-lg"
                                         opts={opts}

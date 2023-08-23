@@ -137,7 +137,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                             {data.trailer &&
                                 <div className="rounded-sm">
                                     <span className='font-bold text-green-400'>Trailer video: </span>
-                                    <div className={`youtube-container skeleton`}>
+                                    <div className={`youtube-container skeleton-two`}>
                                         <YouTube
                                             className="rounded-lg"
                                             opts={opts}
