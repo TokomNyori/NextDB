@@ -160,9 +160,9 @@ select option {
   font-weight: 700;
   margin-top: -12px;
   color: #8ac926;
-  @apply text-red-400;
+  @apply text-red-500;
   border: 1px solid #8ac926;
-  @apply border-red-400;
+  @apply border-red-500;
   border-radius: 50%;
   padding: 0 0.5rem;
 }

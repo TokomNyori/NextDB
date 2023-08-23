@@ -85,7 +85,7 @@ const Modal: React.FC<ModalProps> = (
                     <div className='.content-wrapper' key={currentID}>
                         <div className="modal-heading">
                             <div className='mr-5'>{page_name === 'tv-series' ? movie.name : movie.title}</div>
-                            <div className='close-btn cursor-pointer font-bold' onClick={closeModal}>X</div>
+                            <div className='close-btn cursor-pointer' onClick={closeModal}>X</div>
                         </div>
                         <div className='modal-body'>
                             <div className=''>
