@@ -411,3 +411,11 @@ a {
     width: 11.225rem;
   }
 }
+
+@media (max-width: 362px) {
+  .card-skeleton {
+    min-height: 16rem;
+    max-height: 18rem;
+    width: 11rem;
+  }
+}
