@@ -40,7 +40,7 @@ const ModalTwo: React.FC<ModalTwoProps> = ({ greet, greetings }) => {
                         </div>
                         <div className='bottom-part text-left mb-0 mt-1'>
                             <p>
-                                <span className='font-bold text-green-400'>NextDB is a web app </span>
+                                <span className='font-bold text-green-400'>Nextify is a web app </span>
                                 that provides users with information and trailer videos about 
                                 Movies, Anime, and TV series. The app is built using Next.js, TypeScript, and Tailwind CSS, 
                                 leveraging the TMDB API and Jikan REST API.

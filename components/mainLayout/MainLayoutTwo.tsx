@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import Cards from "./Cards";
 import axios from "axios";
+import { nanoid } from "nanoid"
 import ScaleLoader from "react-spinners/ScaleLoader";
 import Footer from "../Footer";
 import Link from "next/link";
@@ -246,8 +247,8 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     };
 
     let cardSkeleton: any = [];
-    for (let i = 0; i < 24; i++) {
-        cardSkeleton.push(<CardSkeleton key={currentID} />)
+    for (let i = 0; i < 20; i++) {
+        cardSkeleton.push(<CardSkeleton key={nanoid()} />)
     }
 
     const movieData = data.map(item => {
