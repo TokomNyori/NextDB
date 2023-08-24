@@ -6,7 +6,7 @@ import { Nunito } from 'next/font/google'
 const nunito = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NextDB',
+  title: 'Nextify',
   description: 'Created with Next.js',
   icons: {
     icon: ['/favicon.ico?v=4'],

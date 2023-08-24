@@ -1,6 +1,6 @@
-# NextDB - Movies, Anime and TV Series Information Web App
+# Nextify - Movies, Anime and TV Series Information Web App
 
-NextDB is a web app that provides users with detailed information and trailer videos about Movies, Anime, and TV series. The app is built using Next.js, TypeScript, and Tailwind CSS, leveraging the TMDB API and Jikan REST API. The app is updated regularly.
+Nextify is a web app that provides users with detailed information and trailer videos about Movies, Anime, and TV series. The app is built using Next.js, TypeScript, and Tailwind CSS, leveraging the TMDB API and Jikan REST API. The app is updated regularly.
 
 ## Features
 
@@ -10,7 +10,7 @@ NextDB is a web app that provides users with detailed information and trailer vi
 
 ## How to Use
 
-To clone and run NextDB on your local machine, follow these steps:
+To clone and run Nextify on your local machine, follow these steps:
 
 1. Open your preferred IDE's terminal.
 2. Run the following command to clone the repository:
