@@ -15,7 +15,7 @@ To clone and run Nextify on your local machine, follow these steps:
 1. Open your preferred IDE's terminal.
 2. Run the following command to clone the repository:
    ```bash
-   git clone https://github.com/TokomNyori/NextDB.git
+   git clone https://github.com/TokomNyori/Nextify.git
    npm install
    npm run dev
    ```
