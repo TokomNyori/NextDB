@@ -303,7 +303,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             }
             {
                 skeletonLoading &&
-                <div className='modal-blur inset-0 bg-black bg-opacity-25
+                <div className='modal-blur inset-0 bg-black bg-opacity-30
                         flex justify-center items-center fixed flex-wrap transition duration-150 ease-out z-50'>
                     <ScaleLoader
                         color={"#1FDF64"}
