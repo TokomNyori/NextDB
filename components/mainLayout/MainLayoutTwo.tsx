@@ -253,7 +253,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     const movieData = data.map(item => {
         return (
             <Cards
-                page_name={page_name}
+                page_name={pageName}
                 id={item['mal_id']}
                 key={item['mal_id']}
                 title={val === 'characters' ? item['name'] : item['title']}
@@ -345,7 +345,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 ytRef={youtubeRef}
                 datas={data} detail={details} currentID={currentID}
                 modalState={modalState} closeModal={closeModal}
-                val={val} page_name={page_name}
+                val={val} page_name={pageName}
                 key={currentID}
             />
             <Footer />

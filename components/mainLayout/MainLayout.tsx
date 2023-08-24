@@ -275,7 +275,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     const movieData = data.map(item => {
         return (
             <Cards
-                page_name={page_name}
+                page_name={pageName}
                 id={item['id']}
                 key={item['id']}
                 title={page_name === 'tv-series' ? item['name'] : item['title']}
@@ -369,7 +369,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             <Modal
                 movies={data} currentID={currentID}
                 modalState={modalState} closeModal={closeModal}
-                val={val} page_name={page_name}
+                val={val} page_name={pageName}
                 details={details}
                 key={currentID}
                 youtubeID={youtubeID} ytRef={youtubeRef} cast={cast}
