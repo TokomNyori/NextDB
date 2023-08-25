@@ -31,7 +31,7 @@ const Cards: React.FC<CardsProps> = ({
             </h4>
             <div className="cursor-pointer" onClick={(event) => changeModal(event, id)}>
                 <Image
-                    className={`${page_name === 'anime' ? 'card-image-two' : 'card-image'} rounded-lg skeleton-image`}
+                    className={`${page_name === 'anime' ? 'card-image-two' : 'card-image'} rounded-lg skeleton-two`}
                     src={poster} width={400} height={400} alt="poster"
                 />
             </div>

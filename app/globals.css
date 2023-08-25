@@ -285,12 +285,10 @@ a {
 }
 
 .card-image {
-  background: rgba(116, 116, 116, 0.7);
   min-height: 17.5rem;
 }
 
 .card-image-two {
-  background: rgba(116, 116, 116, 0.7);
   min-height: 17rem;
 }
 
