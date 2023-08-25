@@ -342,6 +342,11 @@ a {
   }
 }
 
+.skeleton-image {
+  opacity: 0.7;
+  background: rgba(116, 116, 116, 1);
+}
+
 @media (max-width: 968px) {
   .details-two {
     display: grid;
