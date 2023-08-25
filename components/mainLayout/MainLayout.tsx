@@ -209,10 +209,10 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     }
 
     function changeModal(event: any, id: any) {
-        setCurrentID(id)
         setYoutubeID('')
         setDetails([])
         setCast([])
+        setCurrentID(id)
         setModalState(true)
     }
 
