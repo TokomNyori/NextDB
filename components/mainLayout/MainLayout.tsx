@@ -25,8 +25,8 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     const [modalState, setModalState] = useState(false)
     const [details, setDetails] = useState([])
     const [currentID, setCurrentID] = useState()
-    const [youtubeID, setYoutubeID] = useState('')
-    const [cast, setCast] = useState([])
+    const [youtubeID, setYoutubeID] = useState()
+    const [cast, setCast] = useState()
     const [pageName, setPageName] = useState(page_name)
     const youtubeRef = useRef(null);
     const API_KEY = "88477ce165409d6acab148e6bbcff0a7"
@@ -209,9 +209,6 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     }
 
     function changeModal(event: any, id: any) {
-        setYoutubeID('')
-        setDetails([])
-        setCast([])
         setCurrentID(id)
         setModalState(true)
     }
