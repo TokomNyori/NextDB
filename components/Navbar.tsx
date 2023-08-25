@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-import ModalTwo from "./ModalTwo"
+import ModalTwo from "./modals/ModalTwo"
 export default function Navbar() {
     const [greet, setGreet] = useState(false)
     function greetings() {

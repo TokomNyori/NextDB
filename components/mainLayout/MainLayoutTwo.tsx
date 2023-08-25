@@ -10,9 +10,9 @@ import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
 import { SiMyanimelist } from 'react-icons/si'
-import ModalAnime from "../ModalAnime";
+import ModalAnime from "../modals/ModalAnime";
 import { FaSuperpowers } from 'react-icons/fa'
-import CardSkeleton from "../CardSkeleton";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
 export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     const [val, setVal] = useState('current season');
@@ -67,7 +67,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     }, [val])
 
     useEffect(() => {
-        
+
     }, [currentID])
 
     useEffect(() => {
@@ -87,7 +87,7 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
             window.removeEventListener('scroll', handleScroll);
         };
 
-    })
+    }, [])
 
     async function workingWithData() {
         setSkeletonLoading(true)
@@ -283,18 +283,17 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
             }
             {
                 skeletonLoading &&
-                <div className='modal-blur inset-0 bg-black bg-opacity-30
+                <div className='modal-blur inset-0 bg-black bg-opacity-20
                         flex justify-center items-center fixed flex-wrap transition duration-150 ease-out z-50'>
                     <ScaleLoader
                         color={"#1FDF64"}
                         loading={loading}
                         // @ts-ignore
-                        size={0}
+                        size={50}
                         aria-label="Loading Spinner"
                         data-testid="loader"
                     />
                 </div>
-
             }
             <div className="grid grid-cols-3 gap-3 md:gap-4">
                 <Link
@@ -338,7 +337,8 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                 </select>
             </div>
             <div
-                className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12">
+                className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12
+                            ${skeletonLoading && 'mt-2'}`}>
                 {skeletonLoading ? cardSkeleton : movieData}
             </div>
             <Toaster />

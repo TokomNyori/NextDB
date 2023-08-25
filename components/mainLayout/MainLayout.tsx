@@ -5,14 +5,14 @@ import Cards from "./Cards";
 import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { nanoid } from "nanoid"
-import Modal from "../Modal";
+import Modal from "../modals/Modal";
 import Footer from "../Footer";
 import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
 import { SiMyanimelist } from 'react-icons/si'
 import { FaSuperpowers } from 'react-icons/fa'
-import CardSkeleton from "../CardSkeleton";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
 export default function MainLayout({ page_name }: { page_name: string }) {
     const mValue = page_name === 'movies' ? 'trending (movies)' : 'trending (tv series)';
@@ -25,13 +25,14 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     const [modalState, setModalState] = useState(false)
     const [details, setDetails] = useState([])
     const [currentID, setCurrentID] = useState()
-    const [youtubeID, setYoutubeID] = useState()
-    const [cast, setCast] = useState()
+    const [youtubeID, setYoutubeID] = useState('')
+    const [cast, setCast] = useState([])
     const [pageName, setPageName] = useState(page_name)
     const youtubeRef = useRef(null);
     const API_KEY = "88477ce165409d6acab148e6bbcff0a7"
 
     useEffect(() => {
+        setSkeletonLoading(true)
         try {
             toast.promise(
                 // axios.get('/api/get/', { params: { val } })
@@ -87,6 +88,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 .then(res => res.json())
                 .then(data => {
                     setYoutubeID(data.results)
+                    console.log(data.result)
                     setLoading(false)
                 })
 
@@ -137,10 +139,11 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             window.removeEventListener('scroll', handleScroll);
         };
 
-    })
+    }, [])
 
     async function workingWithData() {
         setSkeletonLoading(true)
+        scrollToTop()
         if (page_name === 'movies') {
             if (val === 'trending') {
                 const result = await fetch(`https://api.themoviedb.org/3/${val}/movie/day?api_key=${API_KEY}`)
@@ -206,8 +209,11 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     }
 
     function changeModal(event: any, id: any) {
-        setModalState(true)
         setCurrentID(id)
+        setYoutubeID('')
+        setDetails([])
+        setCast([])
+        setModalState(true)
     }
 
     function closeModal(event: any) {
@@ -303,13 +309,13 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             }
             {
                 skeletonLoading &&
-                <div className='modal-blur inset-0 bg-black bg-opacity-30
+                <div className='modal-blur inset-0 bg-black bg-opacity-20
                         flex justify-center items-center fixed flex-wrap transition duration-150 ease-out z-50'>
                     <ScaleLoader
                         color={"#1FDF64"}
                         loading={loading}
                         // @ts-ignore
-                        size={0}
+                        size={50}
                         aria-label="Loading Spinner"
                         data-testid="loader"
                     />
@@ -333,7 +339,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                     <div>TV Series</div>
                 </Link>
                 <Link
-                    className={`${page_name === 'anime' && 'border-b-[1px] border-slate-300'} text-center
+                    className={`${pageName === 'anime' && 'border-b-[1px] border-slate-300'} text-center
                                     flex justify-center items-center gap-1 px-2 py-1 
                                   hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/anime' onClick={tabLoading} id="linkAnime" >
@@ -341,7 +347,8 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                     <div>Anime</div>
                 </Link>
             </div>
-            <div className={`sorting-nav my-6 ml-2 flex gap-2 items-center ${isSticky ? 'fixed-nav' : ''}`}>
+            <div className={`sorting-nav my-6 ml-2 flex gap-2 items-center 
+                            ${isSticky ? 'fixed-nav' : ''}`}>
                 <h1>Sort:</h1>
                 {pageName === 'movies' ?
                     <select className='font-Nunito p-2 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#ffffff33]'
@@ -359,10 +366,12 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                         <option value="top_rated">Top Rated</option>
                         <option value="popular">Popular</option>
                         <option value="on_the_air">On the Air</option>
-                    </select>}
+                    </select>
+                }
             </div>
             <div
-                className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12">
+                className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12
+                            ${skeletonLoading && 'mt-2'}`}>
                 {skeletonLoading ? cardSkeleton : movieData}
             </div>
             <Toaster />
