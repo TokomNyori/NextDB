@@ -24,14 +24,14 @@ const Cards: React.FC<CardsProps> = ({
     //<img src={`https://image.tmdb.org/t/p/original${poster}`} width={400} height={400} />
     return (
         <div className="card rounded-lg pt-3" key={key}>
-            <h4 
+            <h4
                 className="card-title rounded-t-lg text-sm lg:text-[0.95rem] font-bold cursor-pointer px-2 pb-2 truncate ..."
                 onClick={(event) => changeModal(event, id)}>
                 {title}
             </h4>
             <div className="cursor-pointer" onClick={(event) => changeModal(event, id)}>
                 <Image
-                    className="card-image rounded-lg"
+                    className="card-image rounded-lg skeleton-two"
                     src={poster} width={400} height={400} alt="poster"
                 />
             </div>
