@@ -285,6 +285,7 @@ a {
 }
 
 .card-image {
+  background: rgba(116, 116, 116, 0.7);
   min-height: 17rem;
 }
 
@@ -340,11 +341,6 @@ a {
   100% {
     background-position: -100% 0;
   }
-}
-
-.skeleton-image {
-  opacity: 0.7;
-  background: rgba(116, 116, 116, 1);
 }
 
 @media (max-width: 968px) {
