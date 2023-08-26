@@ -1,5 +1,6 @@
 import { FaInstagram } from 'react-icons/fa'
 import { AiFillGithub } from 'react-icons/ai'
+import { useRef, useEffect } from 'react'
 
 interface ModalTwoProps {
     greet: boolean,
@@ -7,12 +8,30 @@ interface ModalTwoProps {
 }
 
 const ModalTwo: React.FC<ModalTwoProps> = ({ greet, greetings }) => {
+    const modalRef = useRef(null);
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            // @ts-ignore
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                greetings()
+            }
+        };
+
+        if (greet) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [greet]);
+
     return (
         <div
             className={`modal-blur inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center
                         ${greet ? "fix-modal" : "hidden"} flex-wrap z-50`}
         >
-            <div className="modal rounded-lg py-16 pb-0 pt-8" >
+            <div className="modal rounded-lg py-16 pb-0 pt-8" ref={modalRef} >
                 <div className='.content-wrapper'>
                     <div className="modal-heading">
                         <div className='mr-5'></div>
@@ -41,8 +60,8 @@ const ModalTwo: React.FC<ModalTwoProps> = ({ greet, greetings }) => {
                         <div className='bottom-part text-left mb-0 mt-1'>
                             <p>
                                 <span className='font-bold text-green-400'>Nextify is a web app </span>
-                                that provides users with information and trailer videos about 
-                                Movies, Anime, and TV series. The app is built using Next.js, TypeScript, and Tailwind CSS, 
+                                that provides users with information and trailer videos about
+                                Movies, Anime, and TV series. The app is built using Next.js, TypeScript, and Tailwind CSS,
                                 leveraging the TMDB API and Jikan REST API.
                                 <a href="https://github.com/TokomNyori/NextDB" target='_blank'>
                                     &nbsp; <AiFillGithub className='text-white text-lg shadow-lg inline font-bold' />

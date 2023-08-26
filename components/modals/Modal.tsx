@@ -33,7 +33,6 @@ const Modal: React.FC<ModalProps> = (
                 closeModal()
             }
         };
-        console.log('Outside click handler')
 
         if (modalState) {
             document.addEventListener('click', handleOutsideClick);
@@ -42,7 +41,7 @@ const Modal: React.FC<ModalProps> = (
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
-    } , [modalState]);
+    }, [modalState]);
 
     const [isVideoPlaying, setVideoPlaying] = useState(false);
 

@@ -288,7 +288,6 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             />
         )
     })
-    console.log(modalState)
 
     return (
         <div className="flex flex-col justify-center items-center">
