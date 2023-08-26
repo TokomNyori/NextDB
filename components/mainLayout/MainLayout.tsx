@@ -209,6 +209,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     }
 
     function changeModal(event: any, id: any) {
+        console.log('Change Modal cliked')
         setCurrentID(id)
         setModalState(true)
     }
@@ -287,6 +288,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             />
         )
     })
+    console.log(modalState)
 
     return (
         <div className="flex flex-col justify-center items-center">

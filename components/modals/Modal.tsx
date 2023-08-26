@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { ReactNode } from "react"
 import YouTube from "react-youtube"
 import { AiOutlineCloseCircle } from 'react-icons/ai'
@@ -22,9 +22,27 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = (
     {
-        modalState, closeModal, currentID, movies, val, key, page_name, youtubeID, ytRef, cast, details
+        modalState, closeModal, currentID, movies, val, key, page_name, youtubeID, ytRef, cast, details,
     }
 ) => {
+    const modalRef = useRef(null);
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            // @ts-ignore
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                closeModal()
+            }
+        };
+        console.log('Outside click handler')
+
+        if (modalState) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    } , [modalState]);
 
     const [isVideoPlaying, setVideoPlaying] = useState(false);
 
@@ -178,7 +196,7 @@ const Modal: React.FC<ModalProps> = (
             className={`modal-blur inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center
                         ${modalState ? "fix-modal" : "hidden"} flex-wrap`}
         >
-            <div className="modal rounded-lg py-6" >
+            <div className="modal rounded-lg py-6" ref={modalRef} >
                 {content}
             </div>
         </div>

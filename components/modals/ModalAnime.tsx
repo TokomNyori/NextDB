@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import YouTube from "react-youtube"
 
 interface ModalProps {
@@ -19,6 +19,23 @@ interface ModalProps {
 
 const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, datas, val, key, page_name, detail, ytRef }) => {
     const [isVideoPlaying, setVideoPlaying] = useState(false);
+    const modalRef = useRef(null);
+    useEffect(() => {
+        const handleOutsideClick = (event: any) => {
+            // @ts-ignore
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                closeModal()
+            }
+        };
+
+        if (modalState) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [modalState]);
 
     // @ts-ignore
     const details = datas?.map(data => {
@@ -258,7 +275,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
             className={`modal-blur inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center
                         ${modalState ? "fix-modal" : "hidden"} flex-wrap`}
         >
-            <div className="modal rounded-lg py-6" >
+            <div className="modal rounded-lg py-6" ref={modalRef}>
                 {details}
             </div>
         </div>
