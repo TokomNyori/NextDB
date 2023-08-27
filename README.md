@@ -9,7 +9,7 @@ Nextify is a web app that provides users with detailed information and trailer v
 - User-friendly interface and responsive design for various devices.
 
 ## Demo Link
-Demo link [Nextify](https://nextifyweb.vercel.app/).
+Nextify demo link [Nextify webapp](https://nextifyweb.vercel.app/).
 
 ## How to Use
 
