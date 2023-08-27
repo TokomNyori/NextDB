@@ -330,7 +330,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                 </Link>
                 <Link
                     className={`${pageName === 'tv-series' && 'border-b-[1px] border-slate-300'} text-center
-                                    flex justify-center items-center gap-1 px-2 py-1 focus:border-b-[1px]
+                                    flex justify-center items-center gap-1 px-2 py-1
                                   hover:bg-slate-700 hover:rounded-lg transition duration-300 ease-out`}
                     href='/tv-series' onClick={tabLoading} id="linkTv" >
                     <PiTelevisionSimpleBold className='text-red-400' />
