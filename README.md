@@ -8,6 +8,9 @@ Nextify is a web app that provides users with detailed information and trailer v
 - Get in-depth information about anime from different seasons and beyond.
 - User-friendly interface and responsive design for various devices.
 
+## Demo Link
+Demo link [Nextify](https://nextifyweb.vercel.app/).
+
 ## How to Use
 
 To clone and run Nextify on your local machine, follow these steps:
