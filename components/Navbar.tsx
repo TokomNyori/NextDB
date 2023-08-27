@@ -12,7 +12,7 @@ export default function Navbar() {
                 <div className='logo-container absolute md:relative'>
                     <h1 className='logo-main'>Nextify</h1>
                 </div>
-                <div className='greet cursor-pointe ml-auto' onClick={greetings}>
+                <div className='greet cursor-pointer ml-auto' onClick={greetings}>
                     Hi ✋🏻
                 </div>
             </nav>
