@@ -40,7 +40,7 @@ const ModalTwo: React.FC<ModalTwoProps> = ({ greet, greetings }) => {
                     <div className='modal-body'>
                         <div className='details-two'>
                             <div className='movie-description text-left'>
-                                <h1 className='text-red-400 font-bold'>I am Tokom,</h1>
+                                <h1 className='text-red-400 font-bold'>I am Tokom Nyori,</h1>
                                 <p>a mobile and web app developer with a passion for nutrition science and economics.</p>
                             </div>
                             <div className='modal-image-cover mb-2'>
