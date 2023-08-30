@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import Cards from "./Cards";
-import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { nanoid } from "nanoid"
 import Modal from "../modals/Modal";
@@ -10,9 +9,10 @@ import Footer from "../Footer";
 import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
-import { SiMyanimelist } from 'react-icons/si'
 import { FaSuperpowers } from 'react-icons/fa'
 import CardSkeleton from "../skeletons/CardSkeleton";
+import { getData } from "@/app/libs/getData";
+import { getDataById } from "@/app/libs/getDataById";
 
 export default function MainLayout({ page_name }: { page_name: string }) {
     const mValue = page_name === 'movies' ? 'trending (movies)' : 'trending (tv series)';
@@ -29,19 +29,11 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     const [cast, setCast] = useState()
     const [pageName, setPageName] = useState(page_name)
     const youtubeRef = useRef(null);
-    const API_KEY = "88477ce165409d6acab148e6bbcff0a7"
 
     useEffect(() => {
-        setSkeletonLoading(true)
         try {
             toast.promise(
-                // axios.get('/api/get/', { params: { val } })
-                //     .then(res => {
-                //         setData(res.data)
-                //         setLoading(false)
-                //         scrollToTop()
-                //     }),
-                workingWithData(),
+                workingWithData('data'),
                 {
                     loading: 'Lights, Camera, Loading...',
                     success: <b className="capitalize">{mirrorVal}</b>,
@@ -70,56 +62,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     }, [val])
 
     useEffect(() => {
-        setLoading(true)
-        // axios.get('/api/get/', { params: { currentID, val } })
-        //     .then(res => {
-        //         setGenres(res.data)
-        //         setLoading(false)
-        //     })
-        if (page_name === 'tv-series') {
-            fetch(`https://api.themoviedb.org/3/tv/${currentID}?api_key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    setDetails(data)
-                    setLoading(false)
-                })
-
-            fetch(`https://api.themoviedb.org/3/tv/${currentID}/videos?api_key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    setYoutubeID(data.results)
-                    console.log(data.result)
-                    setLoading(false)
-                })
-
-            fetch(`https://api.themoviedb.org/3/tv/${currentID}/credits?api_key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    setCast(data.cast)
-                    setLoading(false)
-                })
-        } else {
-            fetch(`https://api.themoviedb.org/3/movie/${currentID}?api_key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    setDetails(data)
-                    setLoading(false)
-                })
-
-            fetch(`https://api.themoviedb.org/3/movie/${currentID}/videos?api_key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    setYoutubeID(data.results)
-                    setLoading(false)
-                })
-
-            fetch(`https://api.themoviedb.org/3/movie/${currentID}/credits?api_key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    setCast(data.cast)
-                    setLoading(false)
-                })
-        }
+        workingWithData('data by id')
     }, [currentID])
 
     useEffect(() => {
@@ -141,46 +84,21 @@ export default function MainLayout({ page_name }: { page_name: string }) {
 
     }, [])
 
-    async function workingWithData() {
-        setSkeletonLoading(true)
-        scrollToTop()
-        if (page_name === 'movies') {
-            if (val === 'trending') {
-                const result = await fetch(`https://api.themoviedb.org/3/${val}/movie/day?api_key=${API_KEY}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        setData(data.results)
-                        setSkeletonLoading(false)
-                        scrollToTop()
-                    })
-            } else {
-                const result = await fetch(`https://api.themoviedb.org/3/movie/${val}?api_key=${API_KEY}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        setData(data.results)
-                        setSkeletonLoading(false)
-                        scrollToTop()
-                    })
-            }
+    async function workingWithData(type: string) {
+        const res = await fetch('https://64eefa46219b3e2873c3b912.mockapi.io/products')
+        if (type === 'data') {
+            setSkeletonLoading(true)
+            const response: any = await getData({ val: val, pageName: pageName })
+            setData(response)
+            setSkeletonLoading(false)
+            scrollToTop()
         } else {
-            if (val === 'trending') {
-                const result = await fetch(`https://api.themoviedb.org/3/${val}/tv/day?api_key=${API_KEY}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        setData(data.results)
-                        setSkeletonLoading(false)
-                        scrollToTop()
-                    })
-            } else {
-                const result = await fetch(`https://api.themoviedb.org/3/tv/${val}?api_key=${API_KEY}&language=en-US&sort_by=popularity`)
-                    .then(res => res.json())
-                    .then(data => {
-                        setData(data.results)
-                        setSkeletonLoading(false)
-                        scrollToTop()
-                    })
-            }
-
+            setLoading(true)
+            const responses: any = await getDataById({ currentID: currentID, pageName: pageName })
+            setDetails(responses[0])
+            setYoutubeID(responses[1])
+            setCast(responses[2])
+            setLoading(false)
         }
     }
 

@@ -2,17 +2,16 @@
 import { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import Cards from "./Cards";
-import axios from "axios";
 import { nanoid } from "nanoid"
 import ScaleLoader from "react-spinners/ScaleLoader";
 import Footer from "../Footer";
 import Link from "next/link";
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { PiTelevisionSimpleBold } from 'react-icons/pi'
-import { SiMyanimelist } from 'react-icons/si'
 import ModalAnime from "../modals/ModalAnime";
 import { FaSuperpowers } from 'react-icons/fa'
 import CardSkeleton from "../skeletons/CardSkeleton";
+import { getData } from "@/app/libs/getData";
 
 export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     const [val, setVal] = useState('current season');
@@ -27,17 +26,10 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     const youtubeRef = useRef(null);
     const currentYear = new Date().getFullYear();
     const [pageName, setPageName] = useState(page_name)
-    const API_KEY = "88477ce165409d6acab148e6bbcff0a7"
 
     useEffect(() => {
         try {
             toast.promise(
-                // axios.get('/api/get/', { params: { val } })
-                //     .then(res => {
-                //         setData(res.data)
-                //         setLoading(false)
-                //         scrollToTop()
-                //     }),
                 workingWithData(),
                 {
                     loading: 'Unlocking the Anime Vault...',
@@ -91,79 +83,10 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
 
     async function workingWithData() {
         setSkeletonLoading(true)
-        if (val === 'top anime') {
-            const result = await fetch(`https://api.jikan.moe/v4/top/anime?limit=24`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else if (val === 'top manga') {
-            const result = await fetch(`https://api.jikan.moe/v4/top/manga`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else if (val === 'upcoming season') {
-            const result = await fetch(`https://api.jikan.moe/v4/seasons/upcoming?limit=24`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else if (val === `season winter ${currentYear}`) {
-            const result = await fetch(`https://api.jikan.moe/v4/seasons/${currentYear}/winter`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else if (val === `season spring ${currentYear}`) {
-            const result = await fetch(`https://api.jikan.moe/v4/seasons/${currentYear}/spring`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else if (val === `season summer ${currentYear}`) {
-            const result = await fetch(`https://api.jikan.moe/v4/seasons/${currentYear}/summer`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else if (val === `season fall ${currentYear}`) {
-            const result = await fetch(`https://api.jikan.moe/v4/seasons/${currentYear}/fall`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else if (val === `season winter ${currentYear + 1}`) {
-            const result = await fetch(`https://api.jikan.moe/v4/seasons/${currentYear + 1}/winter`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        } else {
-            const result = await fetch(`https://api.jikan.moe/v4/seasons/now?limit=24`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data.data)
-                    setSkeletonLoading(false)
-                    scrollToTop()
-                })
-        }
+        const response: any = await getData({ val: val, pageName: pageName, currentYear: currentYear })
+        setData(response)
+        setSkeletonLoading(false)
+        scrollToTop()
     }
 
     function changeCategory(event: any) {
