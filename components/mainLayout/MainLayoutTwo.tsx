@@ -59,10 +59,6 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     }, [val])
 
     useEffect(() => {
-
-    }, [currentID])
-
-    useEffect(() => {
         const handleScroll = () => {
             const scrollTop = window.pageYOffset;
             const threshold = 100; // Adjust this value as needed
