@@ -85,7 +85,6 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     }, [])
 
     async function workingWithData(type: string) {
-        const res = await fetch('https://64eefa46219b3e2873c3b912.mockapi.io/products')
         if (type === 'data') {
             setSkeletonLoading(true)
             const response: any = await getData({ val: val, pageName: pageName })
