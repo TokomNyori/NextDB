@@ -114,8 +114,8 @@ select option {
 }
 
 .modal {
-  width: 40%;
-  max-height: 80%;
+  width: 42%;
+  max-height: 90%;
   padding: 1.5rem 1rem;
   flex-wrap: wrap;
   background-color: rgba(255, 255, 255, 0.1);

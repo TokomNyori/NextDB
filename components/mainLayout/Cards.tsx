@@ -1,5 +1,6 @@
 'use client'
 import Image from "next/image"
+import Link from "next/link";
 
 interface CardsProps {
     id: any,
@@ -24,11 +25,12 @@ const Cards: React.FC<CardsProps> = ({
     //<img src={`https://image.tmdb.org/t/p/original${poster}`} width={400} height={400} />
     return (
         <div className="card rounded-lg pt-3" key={key}>
-            <h4
+            <Link
+                href={'/id'}
                 className="card-title rounded-t-lg text-sm lg:text-[0.95rem] font-bold cursor-pointer px-2 pb-2 truncate ..."
                 onClick={(event) => changeModal(event, id)}>
                 {title}
-            </h4>
+            </Link>
             <div className="cursor-pointer" onClick={(event) => changeModal(event, id)}>
                 <Image
                     className={`${page_name === 'anime' ? 'card-image-two' : 'card-image'} rounded-lg skeleton-two`}

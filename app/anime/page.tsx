@@ -1,3 +1,4 @@
+import MainLayout from '@/components/mainLayout/MainLayout';
 import MainLayoutTwo from '@/components/mainLayout/MainLayoutTwo';
 
 export default function Anime() {

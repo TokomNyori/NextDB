@@ -12,6 +12,9 @@ import ModalAnime from "../modals/ModalAnime";
 import { FaSuperpowers } from 'react-icons/fa'
 import CardSkeleton from "../skeletons/CardSkeleton";
 import { getData } from "@/app/libs/getData";
+import { getCategory } from "@/app/libs/getCategory";
+import Sorting from "./Sorting";
+import scrollToTop from "@/app/libs/scrollToTop";
 
 export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     const [val, setVal] = useState('current season');
@@ -88,26 +91,13 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
     function changeCategory(event: any) {
         const eVal = event.target.value
         setVal(eVal)
-        if (eVal === 'top anime') {
-            setMirrorVal('top anime')
-        } else if (eVal === `season winter ${currentYear}`) {
-            setMirrorVal(`season winter: ${currentYear}`)
-        } else if (eVal === `season spring ${currentYear}`) {
-            setMirrorVal(`season spring: ${currentYear}`)
-        } else if (eVal === `season summer ${currentYear}`) {
-            setMirrorVal(`season summer: ${currentYear}`)
-        } else if (eVal === `season fall ${currentYear}`) {
-            setMirrorVal(`season fall: ${currentYear}`)
-        } else if (eVal === `season winter ${currentYear + 1}`) {
-            setMirrorVal(`season winter: ${currentYear + 1}`)
-        } else {
-            setMirrorVal(eVal)
-        }
+        const category = getCategory({ targetValue: eVal, pageName: pageName, currentYear: currentYear })
+        setMirrorVal(category)
     }
 
     function changeModal(event: any, id: any) {
-        setModalState(true)
         setCurrentID(id)
+        setModalState(true)
     }
 
     function closeModal(event: any) {
@@ -142,32 +132,9 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
         }
     }
 
-    const scrollToTop = () => {
-        const duration = 1000; // Adjust the duration of the scroll animation
-        const startTime = performance.now();
-        const startPosition = window.pageYOffset;
-
-        const easingFunction = (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-
-        const animateScroll = (currentTime: number) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easedProgress = easingFunction(progress);
-            const newPosition = startPosition + (0 - startPosition) * easedProgress;
-
-            window.scrollTo(0, newPosition);
-
-            if (progress < 1) {
-                requestAnimationFrame(animateScroll);
-            }
-        };
-
-        requestAnimationFrame(animateScroll);
-    };
-
     let cardSkeleton: any = [];
     for (let i = 0; i < 20; i++) {
-        cardSkeleton.push(<CardSkeleton key={nanoid()} />)
+        cardSkeleton.push(<CardSkeleton id={nanoid()} />)
     }
 
     const movieData = data.map(item => {
@@ -198,7 +165,6 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                         data-testid="loader"
                     />
                 </div>
-
             }
             {
                 skeletonLoading &&
@@ -240,21 +206,9 @@ export default function MainLayoutTwo({ page_name }: { page_name: string }) {
                     <div>Anime</div>
                 </Link>
             </div>
-            <div className={`sorting-nav my-6 ml-2 flex gap-2 items-center ${isSticky ? 'fixed-nav' : ''}`}>
-                <h1>Sort:</h1>
-                <select className='font-Nunito p-2 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#ffffff33]'
-                    name="categories" id="" value={val} onChange={changeCategory}>
-                    <option value="current season">Current Season</option>
-                    <option value="upcoming season">Upcoming Season</option>
-                    <option value={`season winter ${currentYear}`}>Season: Winter</option>
-                    <option value={`season spring ${currentYear}`}>Season: Spring</option>
-                    <option value={`season summer ${currentYear}`}>Season: Summer</option>
-                    <option value={`season fall ${currentYear}`}>Season: Fall</option>
-                    <option value={`season winter ${currentYear + 1}`}>Season: Winter {currentYear + 1}</option>
-                    <option value="top anime">Top Anime</option>
-                    <option value="top manga">Top Manga</option>
-                </select>
-            </div>
+            <Sorting
+                val={val} pageName={pageName} changeCategory={changeCategory} isSticky={isSticky} currentYear={currentYear}
+            />
             <div
                 className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12
                             ${skeletonLoading && 'mt-2'}`}>

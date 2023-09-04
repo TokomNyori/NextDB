@@ -1,30 +1,32 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { ReactNode } from "react"
 import YouTube from "react-youtube"
-import { AiOutlineCloseCircle } from 'react-icons/ai'
+import Link from "next/link"
+import { nanoid } from 'nanoid'
 
 interface ModalProps {
     modalState: boolean,
     key: any,
     closeModal: any,
     currentID: any,
-    movies: any,
+    datas: any,
     val: string,
     page_name: string,
-    youtubeID: any,
+    youtubeID?: any,
     ytRef: any,
-    cast: any,
+    cast?: any,
     details: any,
 }
 
 
 const Modal: React.FC<ModalProps> = (
     {
-        modalState, closeModal, currentID, movies, val, key, page_name, youtubeID, ytRef, cast, details,
+        modalState, closeModal, currentID, datas, val, key, page_name, youtubeID, ytRef, cast, details,
     }
 ) => {
+
+    const [isVideoPlaying, setVideoPlaying] = useState(false);
     const modalRef = useRef(null);
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
@@ -43,20 +45,8 @@ const Modal: React.FC<ModalProps> = (
         };
     }, [modalState]);
 
-    const [isVideoPlaying, setVideoPlaying] = useState(false);
-
-    const genres = details.genres?.map((genre: any) => {
-        return (
-            <p key={currentID}>{genre.name}</p>
-        )
-    })
-
-    const castNames = cast?.map((name: any) => {
-        return (
-            <p key={currentID}>{name.name}</p>
-        )
-    })
-
+    //Logics
+    let yID: string;
     let language: string;
     const languages: string[] = ['English', 'Japanese', 'Hindi', 'Korean', 'German', 'French', 'Russian', 'Italian',
         'Arabic', 'Chinese', 'Turkish', 'Spanish', 'Portuguese', 'Dutch', 'Vietnamese', 'Filipino', 'Urdu', 'Swedish',
@@ -65,6 +55,18 @@ const Modal: React.FC<ModalProps> = (
     const languageAbr: string[] = ['en', 'ja', 'hi', 'ko', 'de', 'fr', 'ru', 'it',
         'ar', 'zh', 'tr', 'es', 'pt', 'nl', 'vi', 'fil', 'ur', 'sv',
         'ro', 'ca', 'uk', 'pl', 'ta', 'cs', 'ms', 'th', 'tl']
+
+    const genres = details.genres?.map((genre: any) => {
+        return (
+            <p key={nanoid()}>{genre.name}</p>
+        )
+    })
+
+    const castNames = cast?.map((name: any) => {
+        return (
+            <p key={nanoid()}>{name.name}</p>
+        )
+    })
 
     for (let i = 0; i < languages.length; i++) {
         if (details.original_language === languageAbr[i]) {
@@ -75,7 +77,6 @@ const Modal: React.FC<ModalProps> = (
         }
     }
 
-    let yID: string;
     if (youtubeID) {
         for (const item of youtubeID) {
             if (item.name === 'Official Trailer') {
@@ -99,26 +100,26 @@ const Modal: React.FC<ModalProps> = (
         },
     };
 
-    // @ts-ignore
-    const content = movies.map(movie => {
-        if (movie.id === currentID) {
-            let vote_average = movie.vote_average.toFixed(1);
+    //Content JSX
+    const content = datas.map((data: any) => {
+        if (data.id === currentID) {
+            let vote_average = data.vote_average;
             return (
                 <div className='.content-wrapper' key={currentID}>
                     <div className="modal-heading">
-                        <div className='mr-5'>{page_name === 'tv-series' ? movie.name : movie.title}</div>
+                        <div className='mr-5'>{page_name === 'tv-series' ? data.name : data.title}</div>
                         <div className='close-btn cursor-pointer' onClick={closeModal}>X</div>
                     </div>
                     <div className='modal-body'>
                         <div className=''>
                             <div className='movie-description text-left'>
-                                <h1><span className='font-bold'>Vote Average:</span> {vote_average}</h1>
+                                <h1><span className='font-bold'>Vote Average:</span> {vote_average.toFixed(1)}</h1>
                                 <p><span className='font-bold'>Status:</span> {details.status}</p>
                                 <p>
                                     <span className='font-bold'>
                                         {page_name === 'tv-series' ? 'First Air Date: ' : 'Releasse Date: '}
                                     </span>
-                                    {page_name === 'tv-series' ? movie.first_air_date : movie.release_date}
+                                    {page_name === 'tv-series' ? data.first_air_date : data.release_date}
                                 </p>
                             </div>
                             {/* <div className='modal-image-cover'>
@@ -173,13 +174,13 @@ const Modal: React.FC<ModalProps> = (
                                     </div> : null
                             }
                             <p>
-                                <span className='font-bold text-green-400'>Overview:</span> {movie.overview}
+                                <span className='font-bold text-green-400'>Overview:</span> {data.overview}
                             </p>
                             <div className='mt-1 mb-5'>
                                 <p className="font-bold text-red-400 mb-1">Image: </p>
                                 <img
                                     className='rounded-lg'
-                                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt=""
+                                    src={`https://image.tmdb.org/t/p/original${data.poster_path}`} alt=""
                                 />
                             </div>
                         </div>

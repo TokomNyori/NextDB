@@ -1,5 +1,7 @@
 'use client'
 
+import { nanoid } from "nanoid"
+import { Content } from "next/font/google"
 import Link from "next/link"
 import { useEffect, useState, useRef } from "react"
 import YouTube from "react-youtube"
@@ -37,17 +39,23 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
         };
     }, [modalState]);
 
-    // @ts-ignore
-    const details = datas?.map(data => {
+    // Mapping
+    const content = datas?.map((data: any) => {
+
+        // Logics related to data recieved by API
+        const images = data.images.jpg;
+        console.log('DATA DOT IMAGES: ')
+        console.log(images)
+
         const genres = data.genres?.map((genre: any) => {
             return (
-                <p key={currentID}>{genre.name}</p>
+                <p key={nanoid()}>{genre.name}</p>
             )
         })
 
         const themes = data.themes?.map((theme: any) => {
             return (
-                <p key={currentID}>{theme.name}</p>
+                <p key={nanoid()}>{theme.name}</p>
             )
         })
 
@@ -57,11 +65,11 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                 studios = data.studios.map((studio: any) => {
                     if (data.studios[data.studios.length - 1]['name'] === studio.name) {
                         return (
-                            <span key={currentID}>{studio.name}</span>
+                            <span key={nanoid()}>{studio.name}</span>
                         )
                     } else {
                         return (
-                            <span key={currentID}>{studio.name}, </span>
+                            <span key={nanoid()}>{studio.name}, </span>
                         )
                     }
 
@@ -69,7 +77,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
             } else {
                 studios = data.studios.map((studio: any) => {
                     return (
-                        <span key={currentID}>{studio.name}</span>
+                        <span key={nanoid()}>{studio.name}</span>
                     )
                 })
             }
@@ -81,7 +89,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
             if (data.authors) {
                 authors = data.authors.map((author: any) => {
                     return (
-                        <p key={currentID}>{author.name}</p>
+                        <p key={nanoid()}>{author.name}</p>
                     )
                 })
             }
@@ -116,8 +124,8 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
             },
         };
 
+        // Content JSX
         if (data.mal_id === currentID) {
-            //let vote_average = data.vote_average.toFixed(1);
             return (
                 <div className='.content-wrapper' key={currentID}>
                     <div className="modal-heading">
@@ -143,12 +151,6 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                                     null
                                 }
                             </div>
-                            {/* <div className='modal-image-cover'>
-                                <img
-                                    className='modal-image'
-                                    src={data.images.jpg.large_image_url} alt=""
-                                />
-                            </div> */}
                         </div>
                         <div className='text-left'>
                             {data.trailer &&
@@ -235,12 +237,6 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                                     </div> : null
                             }
                         </div>
-                        {/* <div className='modal-image-cover'>
-                                <img
-                                    className='modal-image'
-                                    src={`https://image.tmdb.org/t/p/original${data.poster_path}`} alt=""
-                                />
-                            </div> */}
                         <div className='bottom-part text-left mt-2'>
                             {data.year &&
                                 <p><span className='font-bold'>Year:</span> {data.year}</p>
@@ -259,7 +255,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                             <div className='mt-2 mb-5 flex flex-col gap-2'>
                                 <img
                                     className='rounded-lg'
-                                    src={data.images.jpg.large_image_url} alt=""
+                                    src={images.large_image_url} alt=""
                                 />
                             </div>
                         </div>
@@ -276,7 +272,7 @@ const ModalAnime: React.FC<ModalProps> = ({ modalState, closeModal, currentID, d
                         ${modalState ? "fix-modal" : "hidden"} flex-wrap`}
         >
             <div className="modal rounded-lg py-6" ref={modalRef}>
-                {details}
+                {content}
             </div>
         </div>
     )

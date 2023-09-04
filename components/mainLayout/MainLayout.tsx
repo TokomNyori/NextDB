@@ -13,10 +13,16 @@ import { FaSuperpowers } from 'react-icons/fa'
 import CardSkeleton from "../skeletons/CardSkeleton";
 import { getData } from "@/app/libs/getData";
 import { getDataById } from "@/app/libs/getDataById";
+import { getCategory } from "@/app/libs/getCategory";
+import Sorting from "./Sorting";
+import ModalAnime from "../modals/ModalAnime";
+import scrollToTop from "@/app/libs/scrollToTop";
 
 export default function MainLayout({ page_name }: { page_name: string }) {
-    const mValue = page_name === 'movies' ? 'trending (movies)' : 'trending (tv series)';
-    const [val, setVal] = useState('trending');
+    let valPlaceholder = page_name !== 'anime' ? 'trending' : 'current Season'
+    let mValue = page_name === 'movies' ? 'trending (movies)' : 'trending (tv series)';
+    mValue = page_name !== 'anime' ? mValue : 'Current Season'
+    const [val, setVal] = useState(valPlaceholder);
     const [mirrorVal, setMirrorVal] = useState(mValue);
     const [data, setData] = useState([]);
     const [isSticky, setIsSticky] = useState(false)
@@ -29,6 +35,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     const [cast, setCast] = useState()
     const [pageName, setPageName] = useState(page_name)
     const youtubeRef = useRef(null);
+    const currentYear = new Date().getFullYear();
 
     useEffect(() => {
         try {
@@ -87,7 +94,7 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     async function workingWithData(type: string) {
         if (type === 'data') {
             setSkeletonLoading(true)
-            const response: any = await getData({ val: val, pageName: pageName })
+            const response: any = await getData({ val: val, pageName: pageName, currentYear: currentYear })
             setData(response)
             setSkeletonLoading(false)
             scrollToTop()
@@ -104,29 +111,11 @@ export default function MainLayout({ page_name }: { page_name: string }) {
     function changeCategory(event: any) {
         const eVal = event.target.value
         setVal(eVal)
-        if (page_name === 'movies') {
-            if (eVal === 'top_rated') {
-                setMirrorVal('top rated movies')
-            } else if (eVal === 'now_playing') {
-                setMirrorVal('now playing (movies)')
-            } else {
-                setMirrorVal(eVal + ' movies')
-            }
-        } else {
-            if (eVal === 'top_rated') {
-                setMirrorVal('top rated tv series')
-            } else if (eVal === 'now_playing') {
-                setMirrorVal('now playing (tv series)')
-            } else if (eVal === 'on_the_air') {
-                setMirrorVal('on the air (tv series)')
-            } else {
-                setMirrorVal(eVal + ' tv series')
-            }
-        }
+        const category = getCategory({ targetValue: eVal, pageName: pageName })
+        setMirrorVal(category)
     }
 
     function changeModal(event: any, id: any) {
-        console.log('Change Modal cliked')
         setCurrentID(id)
         setModalState(true)
     }
@@ -147,6 +136,8 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             setSkeletonLoading(false)
         } else if (page_name === 'tv-series' && linkId === 'linkTv') {
             setSkeletonLoading(false)
+        } else if (page_name === 'anime' && linkId === 'linkAnime') {
+            setSkeletonLoading(false)
         } else {
             setSkeletonLoading(true)
         }
@@ -165,42 +156,19 @@ export default function MainLayout({ page_name }: { page_name: string }) {
         }
     }
 
-    const scrollToTop = () => {
-        const duration = 1000; // Adjust the duration of the scroll animation
-        const startTime = performance.now();
-        const startPosition = window.pageYOffset;
-
-        const easingFunction = (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-
-        const animateScroll = (currentTime: number) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easedProgress = easingFunction(progress);
-            const newPosition = startPosition + (0 - startPosition) * easedProgress;
-
-            window.scrollTo(0, newPosition);
-
-            if (progress < 1) {
-                requestAnimationFrame(animateScroll);
-            }
-        };
-
-        requestAnimationFrame(animateScroll);
-    };
-
     let cardSkeleton: any = [];
     for (let i = 0; i < 20; i++) {
-        cardSkeleton.push(<CardSkeleton key={nanoid()} />)
+        cardSkeleton.push(<CardSkeleton id={nanoid()} />)
     }
 
     const movieData = data.map(item => {
         return (
             <Cards
                 page_name={pageName}
-                id={item['id']}
-                key={item['id']}
-                title={page_name === 'tv-series' ? item['name'] : item['title']}
-                poster_path={item['poster_path']}
+                id={pageName === 'anime' ? item['mal_id'] : item['id']}
+                key={pageName === 'anime' ? item['mal_id'] : item['id']}
+                title={pageName === 'tv-series' ? item['name'] : item['title']}
+                poster_path={pageName === 'anime' ? item['images'] : item['poster_path']}
                 changeModal={changeModal}
             />
         )
@@ -262,28 +230,9 @@ export default function MainLayout({ page_name }: { page_name: string }) {
                     <div>Anime</div>
                 </Link>
             </div>
-            <div className={`sorting-nav my-6 ml-2 flex gap-2 items-center 
-                            ${isSticky ? 'fixed-nav' : ''}`}>
-                <h1>Sort:</h1>
-                {pageName === 'movies' ?
-                    <select className='font-Nunito p-2 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#ffffff33]'
-                        name="categories" id="" value={val} onChange={changeCategory}>
-                        <option value="trending">Trending</option>
-                        <option value="top_rated">Top Rated</option>
-                        <option value="popular">Popular</option>
-                        <option value="now_playing">Now Playing</option>
-                        <option value="upcoming">Upcoming</option>
-                    </select>
-                    :
-                    <select className='font-Nunito p-2 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#ffffff33]'
-                        name="categories" id="" value={val} onChange={changeCategory}>
-                        <option value="trending">Trending</option>
-                        <option value="top_rated">Top Rated</option>
-                        <option value="popular">Popular</option>
-                        <option value="on_the_air">On the Air</option>
-                    </select>
-                }
-            </div>
+            <Sorting
+                val={val} pageName={pageName} changeCategory={changeCategory} isSticky={isSticky} currentYear={currentYear}
+            />
             <div
                 className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 px-2 md:px-6 lg:px-12
                             ${skeletonLoading && 'mt-2'}`}>
@@ -291,12 +240,10 @@ export default function MainLayout({ page_name }: { page_name: string }) {
             </div>
             <Toaster />
             <Modal
-                movies={data} currentID={currentID}
+                datas={data} currentID={currentID}
                 modalState={modalState} closeModal={closeModal}
-                val={val} page_name={pageName}
-                details={details}
-                key={currentID}
-                youtubeID={youtubeID} ytRef={youtubeRef} cast={cast}
+                val={val} page_name={pageName} details={details}
+                key={currentID} ytRef={youtubeRef} youtubeID={youtubeID} cast={cast}
             />
             <Footer />
         </div>

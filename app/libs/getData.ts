@@ -1,5 +1,4 @@
 'use server'
-import { NextResponse } from "next/server"
 
 export async function getData(
     { val, pageName, currentYear }:
